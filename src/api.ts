@@ -6,14 +6,14 @@ export const fetchDataFromSheet = async () => {
       )
     ).json();
 
-    return response.map(({ name, latitude, longitude, status,area, numsaplings, plantationdate,  ...props }) => ({
+    return response.map(({ name, latitude, longitude, status,  area, numsaplings, plantationdate,  ...props }) => ({
       name,
       latitude: parseFloat(latitude),
       longitude: parseFloat(longitude),
       status: String(status),
       area: parseInt(area),
-      numsaplings: parseInt(NumSaplings),
-      plantationdate: String(PlantationDate),
+      numsaplings: parseInt(numsaplings),
+      plantationdate: String(plantationdate),
       ...props,
     }));
   } catch (error) {

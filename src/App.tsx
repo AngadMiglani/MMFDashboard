@@ -25,9 +25,12 @@ const App = () => {
         {selectedPoint ? (
           <div>
             <h2>{selectedPoint.name}</h2>
-            <img src={selectedPoint.image}></img>
             <p>Latitude: {selectedPoint.latitude}</p>
             <p>Longitude: {selectedPoint.longitude}</p>
+            <p>Date of Plantation: {selectedPoint.PlantationDate}</p>
+            <p>Area Planted: {selectedPoint.Area}</p>
+            <p>Saplings Planted: {selectedPoint.NumSaplings}</p>
+            <img src={selectedPoint.image}></img>
           </div>
         ) : (
           <p>Click a marker to see details</p>

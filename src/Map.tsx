@@ -36,7 +36,7 @@ const Map = ({ data, onMarkerClick }) => {
             onClick={() => onMarkerClick(point)}
           >
             <img
-              src="/marker-icon.png"
+              src="/free-map-marker-icon-green.png"
               alt="Marker"
               style={{
                 width: "32px",

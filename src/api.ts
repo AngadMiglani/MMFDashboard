@@ -6,10 +6,11 @@ export const fetchDataFromSheet = async () => {
       )
     ).json();
 
-    return response.map(({ name, latitude, longitude, ...props }) => ({
+    return response.map(({ name, latitude, longitude, status, ...props }) => ({
       name,
       latitude: parseFloat(latitude),
       longitude: parseFloat(longitude),
+      status: String(status),
       ...props,
     }));
   } catch (error) {

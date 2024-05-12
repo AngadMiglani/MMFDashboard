@@ -2,7 +2,7 @@ export const fetchDataFromSheet = async () => {
   try {
     const response = await (
       await fetch(
-        "https://opensheet.elk.sh/1m9k7E9mem98y6SUCNHOdfThBC0pTeoe_915tiQbdTyA/Sheet1"
+        "https://opensheet.elk.sh/1EHEvqbtoHtUvg10z05cMUw49Byty5NBChaAznNzIDLo/Sheet1"
       )
     ).json();
 

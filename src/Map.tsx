@@ -25,6 +25,7 @@ const Map = ({ data, onMarkerClick }) => {
           key={point.id}
           latitude={point.latitude}
           longitude={point.longitude}
+          sitestatus={point.status}
         >
           <button
             style={{
@@ -36,7 +37,8 @@ const Map = ({ data, onMarkerClick }) => {
             onClick={() => onMarkerClick(point)}
           >
             <img
-              src="/free-map-marker-icon-green.png"
+            
+              src="/free-map-marker-icon-orange.png"
               alt="Marker"
               style={{
                 width: "32px",

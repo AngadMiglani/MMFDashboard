@@ -7,7 +7,7 @@ const Map = ({ data, onMarkerClick }) => {
   return (
     <ReactMapGL
       initialViewState={{
-        zoom: 8,
+        zoom: 9,
         // center of india
         latitude: 28.53,
         longitude: 77.22,

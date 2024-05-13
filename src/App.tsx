@@ -30,6 +30,7 @@ const App = () => {
             <p>Date of Plantation: {selectedPoint.PlantationDate}</p>
             <p>Area Planted: {selectedPoint.Area}</p>
             <p>Saplings Planted: {selectedPoint.NumSaplings}</p>
+            <p>Status: {selectedPoint.status}</p>
             <iframe src={selectedPoint.image} width="640" height="480" allow="autoplay"></iframe>
             
           </div>

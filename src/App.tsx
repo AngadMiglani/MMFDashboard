@@ -25,8 +25,8 @@ const App = () => {
         {selectedPoint ? (
           <div>
             <h2>{selectedPoint.name}</h2>
-            <p>Latitude: {selectedPoint.latitude}</p>
-            <p>Longitude: {selectedPoint.longitude}</p>
+            <p>Latitude: {round(selectedPoint.latitude,2)}</p>
+            <p>Longitude: {round(selectedPoint.longitude,2)}</p>
             <p>Date of Plantation: {selectedPoint.plantationdate}</p>
             <p>Area Planted: {selectedPoint.area}</p>
             <p>Saplings Planted: {selectedPoint.numsaplings}</p>

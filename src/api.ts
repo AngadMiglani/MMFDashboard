@@ -10,7 +10,7 @@ export const fetchDataFromSheet = async () => {
       name,
       latitude: parseFloat(latitude),
       longitude: parseFloat(longitude),
-      status,
+      status: String(status),
       area: parseInt(area),
       numsaplings: parseInt(numsaplings),
       plantationdate: String(plantationdate),

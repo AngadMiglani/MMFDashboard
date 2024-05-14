@@ -4,6 +4,17 @@ import React, { useEffect, useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 
 const Map = ({ data, onMarkerClick }) => {
+
+  // Define your image paths
+  const markerImages = {
+    Completed: "/free-map-marker-icon-green.png",
+    WIP: "/free-map-marker-icon-orange.png",
+    default: "/free-map-marker-icon-green.png",  // Fallback if status is undefined or not matched
+  };
+  // Function to select image based on status
+  const getMarkerImage = (status) => {
+    return markerImages[status] || markerImages.default;
+  };
   return (
     <ReactMapGL
       initialViewState={{
@@ -36,7 +47,7 @@ const Map = ({ data, onMarkerClick }) => {
             onClick={() => onMarkerClick(point)}
           >
             <img
-              src="/free-map-marker-icon-orange.png"
+              src={getMarkerImage(point.status)}
               alt="Marker"
               style={{
                 width: "32px",

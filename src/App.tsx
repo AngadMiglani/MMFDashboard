@@ -24,7 +24,7 @@ const App = () => {
   const minutes = Math.floor(minutesDecimal);
   const seconds = Math.floor((minutesDecimal - minutes) * 60);
   return `${degrees}° ${minutes}' ${seconds}"`;
-  
+
   }
   return (
     <div style={{ display: "flex", height: "100vh" }}>
@@ -35,8 +35,8 @@ const App = () => {
         {selectedPoint ? (
           <div>
             <h2>{selectedPoint.name}</h2>
-            <p>Latitude: {()=>{converttodegree(selectedPoint.latitude)}}</p>
-            <p>Longitude: {()=>{converttodegree(selectedPoint.longitude)}}</p>
+            <p>Latitude: {converttodegree(selectedPoint.latitude)}</p>
+            <p>Longitude: {converttodegree(selectedPoint.longitude)}</p>
             <p>Date of Plantation: {selectedPoint.plantationdate}</p>
             <p>Area Planted: {selectedPoint.area}</p>
             <p>Saplings Planted: {selectedPoint.numsaplings}</p>

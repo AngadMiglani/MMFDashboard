@@ -27,9 +27,9 @@ const App = () => {
             <h2>{selectedPoint.name}</h2>
             <p>Latitude: {selectedPoint.latitude}</p>
             <p>Longitude: {selectedPoint.longitude}</p>
-            <p>Date of Plantation: {selectedPoint.PlantationDate}</p>
-            <p>Area Planted: {selectedPoint.Area}</p>
-            <p>Saplings Planted: {selectedPoint.NumSaplings}</p>
+            <p>Date of Plantation: {selectedPoint.plantationdate}</p>
+            <p>Area Planted: {selectedPoint.area}</p>
+            <p>Saplings Planted: {selectedPoint.numsaplings}</p>
             <p>Status: {selectedPoint.status}</p>
             <iframe src={selectedPoint.image} width="640" height="480" allow="autoplay"></iframe>
             

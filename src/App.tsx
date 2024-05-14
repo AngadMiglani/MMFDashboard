@@ -16,6 +16,16 @@ const App = () => {
     loadData();
   }, []);
 
+  const converttodegree=(value)=>{
+
+  const absDecimal = Math.abs(value);
+  const degrees = Math.floor(absDecimal);
+  const minutesDecimal = (absDecimal - degrees) * 60;
+  const minutes = Math.floor(minutesDecimal);
+  const seconds = Math.floor((minutesDecimal - minutes) * 60);
+  return `${degrees}° ${minutes}' ${seconds}"`;
+  
+  }
   return (
     <div style={{ display: "flex", height: "100vh" }}>
       <div style={{ width: "50%", height: "100%" }}>
@@ -25,8 +35,8 @@ const App = () => {
         {selectedPoint ? (
           <div>
             <h2>{selectedPoint.name}</h2>
-            <p>Latitude: {selectedPoint.latitude}</p>
-            <p>Longitude: {selectedPoint.longitude}</p>
+            <p>Latitude: {()=>{converttodegree(selectedPoint.latitude)}}</p>
+            <p>Longitude: {()=>{converttodegree(selectedPoint.longitude)}}</p>
             <p>Date of Plantation: {selectedPoint.plantationdate}</p>
             <p>Area Planted: {selectedPoint.area}</p>
             <p>Saplings Planted: {selectedPoint.numsaplings}</p>

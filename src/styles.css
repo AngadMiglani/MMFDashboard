@@ -1,7 +1,26 @@
-html,
-body {
+/* Existing styles */
+html, body {
   font-family: sans-serif;
   text-align: center;
   margin: 0;
   padding: 0;
+}
+
+/* Add these new styles */
+select {
+  padding: 8px;
+  margin: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+/* To ensure the select box is easily visible and accessible */
+#filter-select {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
 }

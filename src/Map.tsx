@@ -25,7 +25,7 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
       width="100%"
       height="100%"
       onViewportChange={setViewport}
-      mapboxApiAccessToken="your-mapbox-access-token"
+      mapboxApiAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
       {data.map((point) => (

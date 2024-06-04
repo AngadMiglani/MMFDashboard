@@ -19,13 +19,19 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
     return markerImages[status] || markerImages.default;
   };
 
+  const handleMarkerClick = (e, point) => {
+    e.preventDefault(); // Stop the event from bubbling up to the map
+    e.stopPropagation(); // Stop further propagation of the event
+    onMarkerClick(point);
+  };
+
   return (
     <ReactMapGL
       {...viewport}
       width="100%"
       height="100%"
-      onViewportChange={nextViewport => setViewport(nextViewport)}
-      mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
+      onViewportChange={setViewport}
+      mapboxAccessToken="your-access-token"
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
       {data.map((point) => (
@@ -33,24 +39,27 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
           key={point.id}
           latitude={point.latitude}
           longitude={point.longitude}
+          offsetLeft={selectedPoint && selectedPoint.id === point.id ? -16 : -10} // Adjust the offset when scaled
+          offsetTop={selectedPoint && selectedPoint.id === point.id ? -16 : -10} // Adjust the offset when scaled
         >
           <button
             style={{
               border: "none",
               background: "transparent",
-              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'none',
-              width: "32px",
-              height: "32px",
-              transition: 'transform 0.2s' // Smooth transition for scaling
+              cursor: "pointer",
+              width: "20px",
+              height: "20px",
+              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'scale(1.0)',
+              transition: 'transform 0.3s ease-out'
             }}
-            onClick={() => onMarkerClick(point)}
+            onClick={(e) => handleMarkerClick(e, point)}
           >
             <img
               src={getMarkerImage(point.status)}
               alt="Marker"
               style={{
-                width: "32px",
-                height: "32px"
+                width: "100%",
+                height: "100%"
               }}
             />
           </button>

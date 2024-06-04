@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
-import Map from "./Map.js";
-import { fetchDataFromSheet } from "./api.ts";
+import Map from "./Map";
+import { fetchDataFromSheet } from "./api";
 
 const App = () => {
-  const [data, setData] = useState([]); // Holds all the fetched data
-  const [selectedPoint, setSelectedPoint] = useState(null); // Holds the currently selected marker data
-  const [filter, setFilter] = useState('All'); // Manages the current filter status
+  const [data, setData] = useState([]);
+  const [selectedPoint, setSelectedPoint] = useState(null);
+  const [filter, setFilter] = useState('All');
 
-  // Fetch data on component mount
   useEffect(() => {
     const loadData = async () => {
       const fetchedData = await fetchDataFromSheet();
-      setData(fetchedData); // Set the fetched data to state
+      setData(fetchedData);
     };
 
     loadData();
   }, []);
 
-  // Filter data based on the selected filter status
   const filteredData = filter === 'All' ? data : data.filter(item => item.status === filter);
 
-  // Handle changing of the filter
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
+  };
+
+  const handleClick = (point) => {
+    setSelectedPoint(point);
   };
 
   const converttodegree = (value) => {
@@ -38,13 +39,13 @@ const App = () => {
     <div style={{ display: "flex", height: "100vh" }}>
       <div style={{ width: "50%", height: "100%" }}>
         <div style={{ position: "absolute", top: 10, left: 10, zIndex: 1000 }}>
-          <select onChange={handleFilterChange}>
+          <select value={filter} onChange={handleFilterChange}>
             <option value="All">All</option>
             <option value="Completed">Completed</option>
             <option value="WIP">Work in Progress</option>
           </select>
         </div>
-        <Map data={filteredData} onMarkerClick={setSelectedPoint} />
+        <Map data={filteredData} onMarkerClick={handleClick} selectedPoint={selectedPoint} />
       </div>
       <div style={{ width: "50%", padding: 20 }}>
         {selectedPoint ? (

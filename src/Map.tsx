@@ -1,34 +1,31 @@
 import "mapbox-gl/dist/mapbox-gl.css";
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 
-const Map = ({ data, onMarkerClick }) => {
+const Map = ({ data, onMarkerClick, selectedPoint }) => {
+  const [viewport, setViewport] = useState({
+    latitude: 28.53,
+    longitude: 77.22,
+    zoom: 9
+  });
 
-  // Define your image paths
   const markerImages = {
     Completed: "/free-map-marker-icon-green.png",
     WIP: "/free-map-marker-icon-orange.png",
-    default: "/free-map-marker-icon-green.png",  // Fallback if status is undefined or not matched
+    default: "/free-map-marker-icon-green.png",
   };
-  // Function to select image based on status
+
   const getMarkerImage = (status) => {
     return markerImages[status] || markerImages.default;
   };
+
   return (
     <ReactMapGL
-      initialViewState={{
-        zoom: 9,
-        // center of india
-        latitude: 28.53,
-        longitude: 77.22,
-      }}
-      // {...viewport}
-      // viewState={viewport}
-      mapboxAccessToken={
-        "pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
-      }
-      // onViewportChange={(nextViewport) => setViewport(nextViewport)}
+      {...viewport}
+      width="100%"
+      height="100%"
+      onViewportChange={nextViewport => setViewport(nextViewport)}
+      mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
       {data.map((point) => (
@@ -41,8 +38,9 @@ const Map = ({ data, onMarkerClick }) => {
             style={{
               border: "none",
               background: "transparent",
+              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.3)' : 'none',
               width: "32px",
-              height: "32px",
+              height: "32px"
             }}
             onClick={() => onMarkerClick(point)}
           >
@@ -51,7 +49,7 @@ const Map = ({ data, onMarkerClick }) => {
               alt="Marker"
               style={{
                 width: "32px",
-                height: "32px",
+                height: "32px"
               }}
             />
           </button>

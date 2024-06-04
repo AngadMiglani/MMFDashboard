@@ -38,9 +38,10 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
             style={{
               border: "none",
               background: "transparent",
-              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.3)' : 'none',
+              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'none',
               width: "32px",
-              height: "32px"
+              height: "32px",
+              transition: 'transform 0.2s' // Smooth transition for scaling
             }}
             onClick={() => onMarkerClick(point)}
           >

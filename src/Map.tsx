@@ -19,19 +19,13 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
     return markerImages[status] || markerImages.default;
   };
 
-  const handleMarkerClick = (e, point) => {
-    e.preventDefault(); // Prevent the default action to ensure map doesn't zoom on marker click
-    e.stopPropagation(); // Stop the event from bubbling up
-    onMarkerClick(point);
-  };
-
   return (
     <ReactMapGL
       {...viewport}
       width="100%"
       height="100%"
-      onViewportChange={nextViewport => setViewport(nextViewport)}
-      mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
+      onViewportChange={setViewport}
+      mapboxApiAccessToken="your-mapbox-access-token"
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
       {data.map((point) => (
@@ -45,18 +39,18 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
               border: "none",
               background: "transparent",
               cursor: "pointer",
-              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'none',
+              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'scale(1.0)',
               transition: 'transform 0.3s ease-out'
             }}
-            onClick={(e) => handleMarkerClick(e, point)}
+            onClick={(e) => {
+              e.stopPropagation();  // Stop the event from bubbling up to the map
+              onMarkerClick(point);
+            }}
           >
             <img
               src={getMarkerImage(point.status)}
               alt="Marker"
-              style={{
-                width: "32px",
-                height: "32px"
-              }}
+              style={{ width: "32px", height: "32px" }}
             />
           </button>
         </Marker>

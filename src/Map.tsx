@@ -24,8 +24,8 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
       {...viewport}
       width="100%"
       height="100%"
-      onViewportChange={setViewport}
-      mapboxApiAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
+      onViewportChange={nextViewport => setViewport(nextViewport)}
+      mapboxApiAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ" // Make sure this is your correct Mapbox access token
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
       {data.map((point) => (
@@ -43,6 +43,7 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
               transition: 'transform 0.3s ease-out'
             }}
             onClick={(e) => {
+              e.preventDefault();  // Prevent default to avoid any page navigation or other unwanted actions
               e.stopPropagation();  // Stop the event from bubbling up to the map
               onMarkerClick(point);
             }}

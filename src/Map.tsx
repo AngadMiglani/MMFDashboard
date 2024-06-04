@@ -9,16 +9,29 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
     zoom: 9
   });
 
-  // Ensure your access token is correct and active
-  const mapboxToken = "pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ";
+  const markerImages = {
+    Completed: "/free-map-marker-icon-green.png",
+    WIP: "/free-map-marker-icon-orange.png",
+    default: "/free-map-marker-icon-green.png",
+  };
+
+  const getMarkerImage = (status) => {
+    return markerImages[status] || markerImages.default;
+  };
+
+  const handleMarkerClick = (e, point) => {
+    e.preventDefault(); // Stop the event from bubbling up to the map
+    e.stopPropagation(); // Stop further propagation of the event
+    onMarkerClick(point);
+  };
 
   return (
     <ReactMapGL
       {...viewport}
-      width="100%"  // Make sure this is 100%
-      height="100%"  // Make sure this is 100%
-      onViewportChange={nextViewport => setViewport(nextViewport)}
-      mapboxApiAccessToken={mapboxToken}  // Correct property for passing token
+      width="100%"
+      height="100%"
+      onViewportChange={setViewport}
+      mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQn"
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
       {data.map((point) => (
@@ -26,25 +39,28 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
           key={point.id}
           latitude={point.latitude}
           longitude={point.longitude}
+          offsetLeft={selectedPoint && selectedPoint.id === point.id ? -16 : -10} // Adjust the offset when scaled
+          offsetTop={selectedPoint && selectedPoint.id === point.id ? -16 : -10} // Adjust the offset when scaled
         >
           <button
             style={{
               border: "none",
               background: "transparent",
               cursor: "pointer",
-              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'none',
+              width: "20px",
+              height: "20px",
+              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'scale(1.0)',
               transition: 'transform 0.3s ease-out'
             }}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onMarkerClick(point);
-            }}
+            onClick={(e) => handleMarkerClick(e, point)}
           >
             <img
               src={getMarkerImage(point.status)}
               alt="Marker"
-              style={{ width: "32px", height: "32px" }}
+              style={{
+                width: "100%",
+                height: "100%"
+              }}
             />
           </button>
         </Marker>

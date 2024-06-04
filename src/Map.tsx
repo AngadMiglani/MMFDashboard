@@ -19,12 +19,6 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
     return markerImages[status] || markerImages.default;
   };
 
-  const handleMarkerClick = (e, point) => {
-    e.preventDefault(); // Stop the event from bubbling up to the map
-    e.stopPropagation(); // Stop further propagation of the event
-    onMarkerClick(point);
-  };
-
   return (
     <ReactMapGL
       {...viewport}
@@ -39,20 +33,22 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
           key={point.id}
           latitude={point.latitude}
           longitude={point.longitude}
-          offsetLeft={selectedPoint && selectedPoint.id === point.id ? -16 : -10} // Adjust the offset when scaled
-          offsetTop={selectedPoint && selectedPoint.id === point.id ? -16 : -10} // Adjust the offset when scaled
         >
           <button
             style={{
               border: "none",
               background: "transparent",
               cursor: "pointer",
-              width: "20px",
-              height: "20px",
+              width: "40px",  // Consistent size for all markers
+              height: "40px",  // Consistent size for all markers
               transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'scale(1.0)',
+              transformOrigin: 'bottom', // Keeps the marker bottom centered on the coordinate
               transition: 'transform 0.3s ease-out'
             }}
-            onClick={(e) => handleMarkerClick(e, point)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onMarkerClick(point);
+            }}
           >
             <img
               src={getMarkerImage(point.status)}

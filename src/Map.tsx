@@ -1,16 +1,8 @@
 import "mapbox-gl/dist/mapbox-gl.css";
-import React, { useState } from "react";
+import React from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 
 const Map = ({ data, onMarkerClick, selectedPoint }) => {
-  const [viewport, setViewport] = useState({
-    latitude: 28.53,
-    longitude: 77.22,
-    zoom: 9,
-    width: "100vw", // Ensuring the map fills the available width.
-    height: "100vh" // Ensuring the map fills the available height.
-  });
-
   const markerImages = {
     Completed: "/free-map-marker-icon-green.png",
     WIP: "/free-map-marker-icon-orange.png",
@@ -21,17 +13,14 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
     return markerImages[status] || markerImages.default;
   };
 
-  const handleMarkerClick = (e, point) => {
-    e.preventDefault(); // Prevent default action (e.g., form submission if any).
-    e.stopPropagation(); // Stop the event from bubbling up to higher level elements.
-    onMarkerClick(point);
-  };
-
   return (
     <ReactMapGL
-      {...viewport}
-      onViewportChange={nextViewport => setViewport(nextViewport)}
-      mapboxApiAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQn" // Replace with your actual Mapbox access token
+      initialViewState={{
+        zoom: 9,
+        latitude: 28.53,
+        longitude: 77.22,
+      }}
+      mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
       {data.map((point) => (
@@ -45,12 +34,12 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
               border: "none",
               background: "transparent",
               cursor: "pointer",
-              width: "40px", // Fixed width
-              height: "40px", // Fixed height
-              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'none',
+              width: "32px",
+              height: "32px",
+              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'scale(1.0)',
               transition: 'transform 0.3s ease-out'
             }}
-            onClick={(e) => handleMarkerClick(e, point)}
+            onClick={() => onMarkerClick(point)}
           >
             <img
               src={getMarkerImage(point.status)}

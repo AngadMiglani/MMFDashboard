@@ -16,8 +16,8 @@ const Map = ({ data, onMarkerClick }) => {
   };
 
   const handleMarkerClick = (point) => {
-    setSelectedPoint(point.id);  // Use point.id as the identifier for scaling
-    onMarkerClick(point);  // Additional actions if needed
+    setSelectedPoint(point.id);  // Update the selected marker's id
+    onMarkerClick(point);  // Trigger additional actions if needed
   };
 
   return (

@@ -14,24 +14,25 @@ const Map = ({ data, onMarkerClick, selectedPoint, setSelectedPoint }) => {
   };
 
   const handleMarkerClick = (index) => {
-    setSelectedPoint(index);  // Use array index as the unique identifier
+    setSelectedPoint(index); // Using index as the identifier
   };
 
+  // Ensure the ReactMapGL has a size that forces it to be visible
   return (
     <ReactMapGL
       initialViewState={{
         latitude: 28.53,
         longitude: 77.22,
-        zoom: 9,
-        width: "100vw",
-        height: "100vh"
+        zoom: 9
       }}
+      width="100vw"  // Viewport width
+      height="100vh" // Viewport height
       mapboxApiAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
       {data.map((point, index) => (
         <Marker
-          key={index}  // Using the index as the key
+          key={index}
           latitude={point.latitude}
           longitude={point.longitude}
         >
@@ -42,7 +43,7 @@ const Map = ({ data, onMarkerClick, selectedPoint, setSelectedPoint }) => {
               cursor: "pointer",
               width: "32px",
               height: "32px",
-              transform: selectedPoint === index ? 'scale(1.6)' : 'scale(1.0)',
+              transform: selectedPoint === index ? 'scale(1.6)' : 'none',
               transition: 'transform 0.3s ease-out',
               display: 'flex',
               alignItems: 'center',
@@ -53,11 +54,7 @@ const Map = ({ data, onMarkerClick, selectedPoint, setSelectedPoint }) => {
             <img
               src={getMarkerImage(point.status)}
               alt="Marker"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: 'contain'
-              }}
+              style={{ width: "100%", height: "100%", objectFit: 'contain' }}
             />
           </button>
         </Marker>

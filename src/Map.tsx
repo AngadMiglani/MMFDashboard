@@ -45,7 +45,7 @@ const Map = ({ data, onMarkerClick }) => {
               cursor: "pointer",
               width: "32px",
               height: "32px",
-              transform: selectedPoint === point.id ? 'scale(1.6)' : 'none',
+              transform: selectedPoint === point.id ? 'scale(2.6)' : 'none',
               transition: 'transform 0.3s ease-out'
             }}
             onClick={() => handleMarkerClick(point)}

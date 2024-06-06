@@ -2,7 +2,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import React from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
 
-const Map = ({ data, onMarkerClick, selectedPoint }) => {
+const Map = ({ data, onMarkerClick, selectedPoint, setSelectedPoint }) => {
   const markerImages = {
     Completed: "/free-map-marker-icon-green.png",
     WIP: "/free-map-marker-icon-orange.png",
@@ -13,19 +13,25 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
     return markerImages[status] || markerImages.default;
   };
 
+  const handleMarkerClick = (index) => {
+    setSelectedPoint(index);  // Use array index as the unique identifier
+  };
+
   return (
     <ReactMapGL
       initialViewState={{
-        zoom: 9,
         latitude: 28.53,
         longitude: 77.22,
+        zoom: 9,
+        width: "100vw",
+        height: "100vh"
       }}
-      mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
+      mapboxApiAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
-      {data.map((point) => (
+      {data.map((point, index) => (
         <Marker
-          key={point.id}
+          key={index}  // Using the index as the key
           latitude={point.latitude}
           longitude={point.longitude}
         >
@@ -36,15 +42,22 @@ const Map = ({ data, onMarkerClick, selectedPoint }) => {
               cursor: "pointer",
               width: "32px",
               height: "32px",
-              transform: selectedPoint && selectedPoint.id === point.id ? 'scale(1.6)' : 'scale(1.0)',
-              transition: 'transform 0.3s ease-out'
+              transform: selectedPoint === index ? 'scale(1.6)' : 'scale(1.0)',
+              transition: 'transform 0.3s ease-out',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
-            onClick={() => onMarkerClick(point)}
+            onClick={() => handleMarkerClick(index)}
           >
             <img
               src={getMarkerImage(point.status)}
               alt="Marker"
-              style={{ width: "100%", height: "100%" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: 'contain'
+              }}
             />
           </button>
         </Marker>

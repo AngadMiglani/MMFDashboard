@@ -28,9 +28,10 @@ select {
   border-radius: 5px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
-  white-space: nowrap;
+  white-space: normal;
   z-index: 1001;
   max-width: 200px;
+  word-wrap: break-word;  /* Ensure long words or URLs break properly */
 }
 
 .tooltip strong {

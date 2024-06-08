@@ -1,34 +1,28 @@
 import "mapbox-gl/dist/mapbox-gl.css";
-
-import React, { useEffect, useState } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import React, { useState } from "react";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
 const Map = ({ data, onMarkerClick }) => {
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
-  // Define your image paths
   const markerImages = {
     Completed: "/free-map-marker-icon-green.png",
     WIP: "/free-map-marker-icon-orange.png",
-    default: "/free-map-marker-icon-green.png",  // Fallback if status is undefined or not matched
+    default: "/free-map-marker-icon-green.png",
   };
-  // Function to select image based on status
+
   const getMarkerImage = (status) => {
     return markerImages[status] || markerImages.default;
   };
+
   return (
     <ReactMapGL
       initialViewState={{
         zoom: 9,
-        // center of india
         latitude: 28.53,
         longitude: 77.22,
       }}
-      // {...viewport}
-      // viewState={viewport}
-      mapboxAccessToken={
-        "pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
-      }
-      // onViewportChange={(nextViewport) => setViewport(nextViewport)}
+      mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
       mapStyle="mapbox://styles/mapbox/streets-v11"
     >
       {data.map((point) => (
@@ -44,7 +38,7 @@ const Map = ({ data, onMarkerClick }) => {
               width: "32px",
               height: "32px",
             }}
-            onClick={() => onMarkerClick(point)}
+            onClick={() => setSelectedMarker(point)}
           >
             <img
               src={getMarkerImage(point.status)}
@@ -57,6 +51,24 @@ const Map = ({ data, onMarkerClick }) => {
           </button>
         </Marker>
       ))}
+
+      {selectedMarker && (
+        <Popup
+          latitude={selectedMarker.latitude}
+          longitude={selectedMarker.longitude}
+          onClose={() => setSelectedMarker(null)}
+          closeOnClick={false}
+          anchor="top"
+        >
+          <div className="tooltip">
+            <strong>{selectedMarker.name}</strong>
+            <p>Trees Planted: {selectedMarker.numsaplings}</p>
+            <button onClick={() => { /* Placeholder for future functionality */ }}>
+              Click for more Info
+            </button>
+          </div>
+        </Popup>
+      )}
     </ReactMapGL>
   );
 };

@@ -35,18 +35,15 @@ const App = () => {
   };
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      <div style={{ width: "50%", height: "100%" }}>
-        <div style={{ position: "absolute", top: 10, left: 10, zIndex: 1000 }}>
+    <div id="app">
+      <div id="stats">
+        <div style={{ marginBottom: 20 }}>
           <select onChange={handleFilterChange}>
             <option value="All">All</option>
             <option value="Completed">Completed</option>
             <option value="WIP">Work in Progress</option>
           </select>
         </div>
-        <Map data={filteredData} onMarkerClick={setSelectedPoint} />
-      </div>
-      <div style={{ width: "50%", padding: 20 }}>
         {selectedPoint ? (
           <div>
             <h2>{selectedPoint.name}</h2>
@@ -61,6 +58,9 @@ const App = () => {
         ) : (
           <p>Click a marker to see details</p>
         )}
+      </div>
+      <div id="map-container">
+        <Map data={filteredData} onMarkerClick={setSelectedPoint} />
       </div>
     </div>
   );

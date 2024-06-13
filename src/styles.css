@@ -1,30 +1,8 @@
 html, body {
   font-family: sans-serif;
+  text-align: center;
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow: hidden; /* Prevents the body from scrolling */
-}
-
-#app {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  overflow: auto; /* Enables scrolling within the app */
-}
-
-#stats {
-  background: white;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#map-container {
-  flex: 1;
-  min-height: 400px;
-  position: relative;
 }
 
 select {
@@ -37,6 +15,13 @@ select {
   cursor: pointer;
 }
 
+#filter-select {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
 .tooltip {
   background: white;
   padding: 10px;
@@ -46,7 +31,7 @@ select {
   white-space: normal;
   z-index: 1001;
   max-width: 200px;
-  word-wrap: break-word; /* Ensure long words or URLs break properly */
+  word-wrap: break-word;  /* Ensure long words or URLs break properly */
 }
 
 .tooltip strong {

@@ -24,7 +24,6 @@ const Map = ({ data, onMarkerClick }) => {
       }}
       mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
       mapStyle="mapbox://styles/mapbox/streets-v11"
-      style={{ width: "100%", height: "100%" }}
     >
       {data.map((point) => (
         <Marker
@@ -39,10 +38,7 @@ const Map = ({ data, onMarkerClick }) => {
               width: "32px",
               height: "32px",
             }}
-            onClick={() => {
-              setSelectedMarker(point);
-              onMarkerClick(point); // Update selected point in parent
-            }}
+            onClick={() => setSelectedMarker(point)}
           >
             <img
               src={getMarkerImage(point.status)}

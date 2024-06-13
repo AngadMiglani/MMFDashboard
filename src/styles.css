@@ -3,8 +3,6 @@ html, body {
   text-align: center;
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden;
 }
 
 select {
@@ -53,24 +51,4 @@ select {
   border-radius: 3px;
   color: white;
   cursor: pointer;
-}
-
-#app {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.map-container {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-}
-
-.map-container > div {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }

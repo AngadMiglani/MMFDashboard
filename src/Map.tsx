@@ -38,7 +38,10 @@ const Map = ({ data, onMarkerClick }) => {
               width: "32px",
               height: "32px",
             }}
-            onClick={() => setSelectedMarker(point)}
+            onClick={() => {
+              setSelectedMarker(point);
+              onMarkerClick(point);
+            }}
           >
             <img
               src={getMarkerImage(point.status)}

@@ -3,27 +3,17 @@ import Map from "./Map.js";
 import { fetchDataFromSheet } from "./api.ts";
 
 const App = () => {
-  const [data, setData] = useState([]); // Holds all the fetched data
-  const [selectedPoint, setSelectedPoint] = useState(null); // Holds the currently selected marker data
-  const [filter, setFilter] = useState('All'); // Manages the current filter status
+  const [data, setData] = useState([]);
+  const [selectedPoint, setSelectedPoint] = useState(null);
 
-  // Fetch data on component mount
   useEffect(() => {
     const loadData = async () => {
       const fetchedData = await fetchDataFromSheet();
-      setData(fetchedData); // Set the fetched data to state
+      setData(fetchedData);
     };
 
     loadData();
   }, []);
-
-  // Filter data based on the selected filter status
-  const filteredData = filter === 'All' ? data : data.filter(item => item.status === filter);
-
-  // Handle changing of the filter
-  const handleFilterChange = (e) => {
-    setFilter(e.target.value);
-  };
 
   const converttodegree = (value) => {
     const absDecimal = Math.abs(value);
@@ -35,18 +25,8 @@ const App = () => {
   };
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      <div style={{ width: "50%", height: "100%" }}>
-        <div style={{ position: "absolute", top: 10, left: 10, zIndex: 1000 }}>
-          <select onChange={handleFilterChange}>
-            <option value="All">All</option>
-            <option value="Completed">Completed</option>
-            <option value="WIP">Work in Progress</option>
-          </select>
-        </div>
-        <Map data={filteredData} onMarkerClick={setSelectedPoint} />
-      </div>
-      <div style={{ width: "50%", padding: 20 }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh", overflow: "auto" }}>
+      <div style={{ flex: "0 1 auto", padding: 20, background: "white" }}>
         {selectedPoint ? (
           <div>
             <h2>{selectedPoint.name}</h2>
@@ -61,6 +41,9 @@ const App = () => {
         ) : (
           <p>Click a marker to see details</p>
         )}
+      </div>
+      <div style={{ flex: "1 1 auto", height: "100vh" }}>
+        <Map data={data} onMarkerClick={setSelectedPoint} />
       </div>
     </div>
   );

@@ -2,8 +2,9 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useState } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
-const Map = ({ data, onMarkerClick }) => {
+const Map = ({ data }) => {
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const [showDetails, setShowDetails] = useState(false); // State to manage showing details
 
   const markerImages = {
     Completed: "/free-map-marker-icon-green.png",
@@ -15,6 +16,11 @@ const Map = ({ data, onMarkerClick }) => {
     return markerImages[status] || markerImages.default;
   };
 
+  const handleMoreInfoClick = (point) => {
+    setSelectedMarker(point);
+    setShowDetails(true);
+  };
+
   return (
     <ReactMapGL
       initialViewState={{
@@ -24,6 +30,7 @@ const Map = ({ data, onMarkerClick }) => {
       }}
       mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
       mapStyle="mapbox://styles/mapbox/streets-v11"
+      style={{ width: "100%", height: "100%" }}
     >
       {data.map((point) => (
         <Marker
@@ -38,7 +45,10 @@ const Map = ({ data, onMarkerClick }) => {
               width: "32px",
               height: "32px",
             }}
-            onClick={() => setSelectedMarker(point)}
+            onClick={() => {
+              setSelectedMarker(point);
+              setShowDetails(false);
+            }}
           >
             <img
               src={getMarkerImage(point.status)}
@@ -63,9 +73,19 @@ const Map = ({ data, onMarkerClick }) => {
           <div className="tooltip">
             <strong>{selectedMarker.name}</strong>
             <p>Trees Planted: {selectedMarker.numsaplings}</p>
-            <button onClick={() => { /* Placeholder for future functionality */ }}>
-              Click for more Info
-            </button>
+            {showDetails ? (
+              <>
+                <p>Address: {selectedMarker.address}</p>
+                <p>Latitude: {selectedMarker.latitude}</p>
+                <p>Longitude: {selectedMarker.longitude}</p>
+                <p>Last Inspection Date: {selectedMarker.plantationdate}</p>
+                <iframe src={selectedMarker.image} width="240" height="180" allow="autoplay"></iframe>
+              </>
+            ) : (
+              <button onClick={() => handleMoreInfoClick(selectedMarker)}>
+                Click for more Info
+              </button>
+            )}
           </div>
         </Popup>
       )}

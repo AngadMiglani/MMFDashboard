@@ -40,17 +40,17 @@ select {
 
 .tooltip strong {
   display: block;
-  margin-bottom: 15px; /* Increase margin */
+  margin-bottom: 8px; /* Decrease margin */
   font-size: 1.4em; /* Increase font size */
 }
 
 .tooltip p {
-  margin: 15px 0; /* Increase margin */
+  margin: 8px 0; /* Decrease margin */
   font-size: 1.2em; /* Increase font size */
 }
 
 .tooltip button {
-  margin-top: 20px; /* Increase margin */
+  margin-top: 12px; /* Decrease margin */
   padding: 12px 18px; /* Increase padding */
   background: #007bff;
   border: none;
@@ -66,6 +66,7 @@ select {
 
 .tooltip iframe {
   width: 100%; /* Make iframe take full width of tooltip */
-  height: auto;
+  height: 300px; /* Increase height */
   border-radius: 10px; /* Match tooltip border radius */
+  margin-top: 12px; /* Add margin to the top */
 }

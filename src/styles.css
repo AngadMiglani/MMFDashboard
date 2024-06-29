@@ -32,8 +32,10 @@ select {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Larger shadow */
   white-space: normal;
   z-index: 1001;
-  max-width: 300px; /* Increase max-width */
+  max-width: 400px; /* Increase max-width */
+  max-height: 600px; /* Increase max-height */
   word-wrap: break-word;  /* Ensure long words or URLs break properly */
+  overflow: hidden; /* Prevent content overflow */
 }
 
 .tooltip strong {
@@ -57,4 +59,10 @@ select {
 
 .tooltip button:hover {
   background: #0056b3;
+}
+
+.tooltip iframe {
+  width: 100%; /* Make iframe take full width of tooltip */
+  height: auto;
+  border-radius: 10px; /* Match tooltip border radius */
 }

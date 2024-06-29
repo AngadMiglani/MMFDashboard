@@ -26,84 +26,35 @@ select {
 
 .tooltip {
   background: white;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 20px; /* Increase padding */
+  border-radius: 10px; /* More rounded corners */
   border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Larger shadow */
   white-space: normal;
   z-index: 1001;
-  max-width: 200px;
+  max-width: 300px; /* Increase max-width */
   word-wrap: break-word;  /* Ensure long words or URLs break properly */
 }
 
 .tooltip strong {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px; /* Increase margin */
 }
 
 .tooltip p {
-  margin: 5px 0;
+  margin: 10px 0; /* Increase margin */
 }
 
 .tooltip button {
-  margin-top: 10px;
-  padding: 5px 10px;
+  margin-top: 15px; /* Increase margin */
+  padding: 10px 15px; /* Increase padding */
   background: #007bff;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px; /* Rounded corners */
   color: white;
   cursor: pointer;
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 400px;
-  width: 90%;
-  text-align: left;
-  position: relative;
-}
-
-.modal-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.modal-button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-top: 20px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.modal-button:hover {
+.tooltip button:hover {
   background: #0056b3;
 }

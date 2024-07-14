@@ -7,9 +7,10 @@ const Map = ({ data }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const markerImages = {
-    Completed: "/free-map-marker-icon-green-darker.png",
-    WIP: "/free-map-marker-icon-pink.png",
-    default: "/free-map-marker-icon-green.png",
+    Completed: "/free-map-marker-icon-green-darker.png", // Updated icon
+    WIP: "/free-map-marker-icon-pink.png", // Updated icon
+    Approved: "/free-map-marker-icon-red.png", // New category icon
+    default: "/free-map-marker-icon-green-darker.png", // Updated default icon
   };
 
   const getMarkerImage = (point) => {

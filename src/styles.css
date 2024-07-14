@@ -11,7 +11,7 @@ select {
   padding: 8px;
   margin: 10px;
   background: white;
-  border: 1px solid rgb(255, 255, 255)fff;
+  border: 1px solid #ccc;
   border-radius: 5px;
   font-family: sans-serif;
   cursor: pointer;
@@ -28,7 +28,7 @@ select {
   background: white;
   padding: 10px; /* Reduce padding */
   border-radius: 10px; /* Rounded corners */
-  border: 1px solid #ffffff;
+  border: 1px solid #000; /* Black border */
   box-shadow: none; /* Remove shadow */
   white-space: normal;
   z-index: 1001;

@@ -4,7 +4,7 @@ import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
 const Map = ({ data }) => {
   const [selectedMarker, setSelectedMarker] = useState(null);
-  const [showDetails, setShowDetails] = useState(false); // State to manage showing details
+  const [showDetails, setShowDetails] = useState(false);
 
   const markerImages = {
     Completed: "/free-map-marker-icon-green-darker.png",
@@ -79,12 +79,12 @@ const Map = ({ data }) => {
                 <p>Latitude: {selectedMarker.latitude}</p>
                 <p>Longitude: {selectedMarker.longitude}</p>
                 <p>Last Inspection Date: {selectedMarker.plantationdate}</p>
-                <iframe src={selectedMarker.image} width="240" height="180" allow="autoplay"></iframe>
+                <iframe src={selectedMarker.image} allow="autoplay"></iframe>
               </>
             ) : (
-              <button onClick={() => handleMoreInfoClick(selectedMarker)}>
-                Click for more Info
-              </button>
+              <a onClick={() => handleMoreInfoClick(selectedMarker)}>
+                View Details
+              </a>
             )}
           </div>
         </Popup>

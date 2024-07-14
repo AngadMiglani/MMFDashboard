@@ -7,13 +7,17 @@ const Map = ({ data }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const markerImages = {
-    Completed: "/free-map-marker-icon-green-darker.png",
-    WIP: "/free-map-marker-icon-pink.png",
-    default: "/free-map-marker-icon-green-darker.png",
+    Completed: "/free-map-marker-icon-green.png",
+    WIP: "/free-map-marker-icon-orange.png",
+    default: "/free-map-marker-icon-green.png",
+    selected: "/free-map-marker-icon-red.png", // New marker image for selected site
   };
 
-  const getMarkerImage = (status) => {
-    return markerImages[status] || markerImages.default;
+  const getMarkerImage = (point, selected) => {
+    if (selected) {
+      return markerImages.selected; // Return the selected marker image
+    }
+    return markerImages[point.status] || markerImages.default;
   };
 
   const handleMoreInfoClick = (point) => {
@@ -51,7 +55,7 @@ const Map = ({ data }) => {
             }}
           >
             <img
-              src={getMarkerImage(point.status)}
+              src={getMarkerImage(point, selectedMarker === point)}
               alt="Marker"
               style={{
                 width: "32px",
@@ -69,8 +73,9 @@ const Map = ({ data }) => {
           onClose={() => setSelectedMarker(null)}
           closeOnClick={false}
           anchor="top"
+          className="mapboxgl-popup"
         >
-          <div className="tooltip">
+          <div className="mapboxgl-popup-content tooltip">
             <strong>{selectedMarker.name}</strong>
             <p>Trees Planted: {selectedMarker.numsaplings}</p>
             {showDetails ? (

@@ -8,7 +8,7 @@ html, body {
 }
 
 select {
-  padding: 8px;
+  padding: 1px; /* CHANGE PERHAPS */
   margin: 10px;
   background: white;
   border: 1px solid #ccc;
@@ -26,7 +26,7 @@ select {
 
 .tooltip {
   background: white;
-  padding: 1px; /* Reduce padding - CHANGE PERHAPS */
+  padding: 10px; /* Reduce padding */
   border-radius: 10px; /* Rounded corners */
   border: 1px solid #000; /* Black border */
   box-shadow: none; /* Remove shadow */

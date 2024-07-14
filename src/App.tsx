@@ -32,6 +32,7 @@ const App = () => {
             <option value="All">All</option>
             <option value="Completed">Completed</option>
             <option value="WIP">Work in Progress</option>
+            <option value="Approved">Approved by MCD</option>
           </select>
         </div>
         <Map data={filteredData} />

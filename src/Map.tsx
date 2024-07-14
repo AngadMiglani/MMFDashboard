@@ -7,8 +7,8 @@ const Map = ({ data }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const markerImages = {
-    Completed: "/free-map-marker-icon-green.png",
-    WIP: "/free-map-marker-icon-orange.png",
+    Completed: "/free-map-marker-icon-green-darker.png",
+    WIP: "/free-map-marker-icon-pink.png",
     default: "/free-map-marker-icon-green.png",
     selected: "/free-map-marker-icon-red.png", // New marker image for selected site
   };

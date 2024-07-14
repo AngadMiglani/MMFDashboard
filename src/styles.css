@@ -8,8 +8,8 @@ html, body {
 }
 
 select {
-  padding: 1px; /* CHANGE PERHAPS */
-  margin: 10px;
+  padding: 8px;
+  margin: 1px;
   background: white;
   border: 1px solid #ccc;
   border-radius: 5px;

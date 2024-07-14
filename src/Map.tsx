@@ -8,7 +8,7 @@ const Map = ({ data }) => {
 
   const markerImages = {
     Completed: "/free-map-marker-icon-green-darker.png", // Updated icon
-    WIP: "/free-map-marker-icon-pink.png", // Updated icon
+    WIP: "/free-map-marker-icon-orange.png", // Updated icon
     Approved: "/free-map-marker-icon-red.png", // New category icon
     default: "/free-map-marker-icon-green-darker.png", // Updated default icon
   };

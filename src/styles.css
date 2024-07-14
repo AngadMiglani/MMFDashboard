@@ -26,39 +26,40 @@ select {
 
 .tooltip {
   background: white;
-  padding: 14px; /* Reduce padding */
+  padding: 10px; /* Reduce padding */
   border-radius: 10px; /* Rounded corners */
   border: 1px solid #ccc;
   box-shadow: none; /* Remove shadow */
   white-space: normal;
   z-index: 1001;
   max-width: 250px; /* Reduce max-width */
-  max-height: 350px; /* Reduce max-height */
   word-wrap: break-word;  /* Ensure long words or URLs break properly */
   overflow: hidden; /* Prevent content overflow */
+  text-align: left; /* Left align text */
 }
 
 .tooltip strong {
   display: block;
-  margin-bottom: 8px; /* Decrease margin */
+  margin-bottom: 5px; /* Decrease margin */
   font-size: 1.2em; /* Reduce font size */
 }
 
 .tooltip p {
-  margin: 8px 0; /* Decrease margin */
+  margin: 5px 0; /* Decrease margin */
   font-size: 1em; /* Reduce font size */
 }
 
 .tooltip a {
-  display: inline-block;
-  margin-top: 12px; /* Decrease margin */
-  padding: 10px 15px; /* Adjust padding */
+  display: block;
+  margin: 8px auto 0; /* Center align link */
+  padding: 8px 12px; /* Adjust padding */
   background: #f0f0f0;
   border-radius: 30px; /* More rounded corners */
   color: #007bff;
   cursor: pointer;
   font-size: 1em; /* Reduce font size */
   text-decoration: none;
+  width: fit-content; /* Center align the link */
 }
 
 .tooltip a:hover {
@@ -70,5 +71,5 @@ select {
   width: 100%; /* Make iframe take full width of tooltip */
   height: 150px; /* Adjust height */
   border-radius: 10px; /* Match tooltip border radius */
-  margin-top: 8px; /* Add margin to the top */
+  margin-top: 5px; /* Add margin to the top */
 }

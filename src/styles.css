@@ -9,7 +9,7 @@ html, body {
 
 select {
   padding: 8px;
-  margin: 1px;
+  margin: 10px;
   background: white;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -28,7 +28,7 @@ select {
   background: white;
   padding: 10px; /* Reduce padding */
   border-radius: 10px; /* Rounded corners */
-  border: 1px solid #000; /* Black border */
+  border: 1px solid #ffffff; /* Black border */
   box-shadow: none; /* Remove shadow */
   white-space: normal;
   z-index: 1001;

@@ -10,13 +10,9 @@ const Map = ({ data }) => {
     Completed: "/free-map-marker-icon-green-darker.png",
     WIP: "/free-map-marker-icon-pink.png",
     default: "/free-map-marker-icon-green.png",
-    selected: "/free-map-marker-icon-red.png", // New marker image for selected site
   };
 
-  const getMarkerImage = (point, selected) => {
-    if (selected) {
-      return markerImages.selected; // Return the selected marker image
-    }
+  const getMarkerImage = (point) => {
     return markerImages[point.status] || markerImages.default;
   };
 
@@ -46,8 +42,8 @@ const Map = ({ data }) => {
             style={{
               border: "none",
               background: "transparent",
-              width: "32px",
-              height: "32px",
+              width: selectedMarker === point ? "48px" : "32px", // Increase size for selected marker
+              height: selectedMarker === point ? "48px" : "32px", // Increase size for selected marker
             }}
             onClick={() => {
               setSelectedMarker(point);
@@ -55,11 +51,11 @@ const Map = ({ data }) => {
             }}
           >
             <img
-              src={getMarkerImage(point, selectedMarker === point)}
+              src={getMarkerImage(point)}
               alt="Marker"
               style={{
-                width: "32px",
-                height: "32px",
+                width: "100%",
+                height: "100%",
               }}
             />
           </button>

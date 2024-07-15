@@ -60,7 +60,7 @@ select {
   background: white;
   padding: 10px; /* Reduce padding */
   border-radius: 10px; /* Rounded corners */
-  border: 2px solid rgb(255, 255, 255); /* Black border around the tooltip */
+  border: 2px solid rgb(0, 0, 0); /* Black border around the tooltip */
   white-space: normal;
   max-width: 250px; /* Reduce max-width */
   word-wrap: break-word; /* Ensure long words or URLs break properly */
@@ -69,7 +69,7 @@ select {
 }
 
 .mapboxgl-popup-tip {
-  border-top-color: black !important; /* Ensure the popup tip has the same border color */
+  border-top-color: rgb(255, 255, 255) !important; /* Ensure the popup tip has the same border color */
 }
 
 .tooltip strong {

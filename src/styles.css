@@ -34,7 +34,7 @@ select {
 
 .stat-box {
   padding: 10px;
-  border: 2px solid black; /* Black border around each stat box */
+  border: 2px solid #ccc; /* Grey border around each stat box */
   border-radius: 5px;
   background-color: white;
   text-align: center;

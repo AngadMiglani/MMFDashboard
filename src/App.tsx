@@ -38,11 +38,11 @@ const App = () => {
           <p>{totalSites}</p>
         </div>
         <div className="stat-box">
-          <label>Total Area Planted</label>
+          <label>Area Planted</label>
           <p>{totalArea}</p>
         </div>
         <div className="stat-box">
-          <label>Total Trees Planted</label>
+          <label>Trees Planted</label>
           <p>{totalTrees}</p>
         </div>
       </div>

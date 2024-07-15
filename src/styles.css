@@ -24,6 +24,34 @@ select {
   z-index: 1000;
 }
 
+.statistics-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ccc;
+}
+
+.stat-box {
+  padding: 10px;
+  border: 2px solid black; /* Black border around each stat box */
+  border-radius: 5px;
+  background-color: white;
+  text-align: center;
+  width: 150px;
+}
+
+.stat-box label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.stat-box p {
+  font-size: 1.5em;
+  margin: 0;
+}
+
 .mapboxgl-popup {
   border: none; /* Remove default border */
 }

@@ -43,7 +43,7 @@ const Map = ({ data }) => {
             style={{
               border: "none",
               background: "transparent",
-              width: selectedMarker === point ? "48px" : "32px", // Increase size for selected marker
+              width: selectedMarker === point ? "54px" : "40px", // Increase size for selected marker
               height: selectedMarker === point ? "48px" : "32px", // Increase size for selected marker
             }}
             onClick={() => {

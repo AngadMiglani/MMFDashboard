@@ -60,7 +60,7 @@ select {
   background: white;
   padding: 10px; /* Reduce padding */
   border-radius: 10px; /* Rounded corners */
-  border: 2px solid black; /* Black border around the tooltip */
+  border: 2px solid rgb(255, 255, 255); /* Black border around the tooltip */
   white-space: normal;
   max-width: 250px; /* Reduce max-width */
   word-wrap: break-word; /* Ensure long words or URLs break properly */

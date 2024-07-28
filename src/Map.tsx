@@ -81,7 +81,7 @@ const Map = ({ data }) => {
                 <p>Latitude: {selectedMarker.latitude}</p>
                 <p>Longitude: {selectedMarker.longitude}</p>
                 <p>Last Inspection Date: {selectedMarker.plantationdate}</p>
-                <iframe src={selectedMarker.image} allow="autoplay"></iframe>
+                <a href={selectedMarker.image} target="_blank" rel="noopener noreferrer">Click to see images</a>
               </>
             ) : (
               <a onClick={() => handleMoreInfoClick(selectedMarker)}>

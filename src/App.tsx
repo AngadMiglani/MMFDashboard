@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import Map from "./Map";
 import { fetchDataFromSheet } from "./api";
 import "./styles.css"; // Ensure styles are imported
@@ -17,10 +18,13 @@ const App = () => {
     loadData();
   }, []);
 
+  // Filter data to only include completed or work in progress sites
+  const validData = data.filter(site => site.status === 'Completed' || site.status === 'WIP');
+
   // Calculate statistics
-  const totalSites = data.length;
-  const totalArea = data.reduce((sum, site) => sum + (site.area || 0), 0);
-  const totalTrees = data.reduce((sum, site) => sum + (site.numsaplings || 0), 0);
+  const totalSites = validData.length;
+  const totalArea = validData.reduce((sum, site) => sum + (site.area || 0), 0);
+  const totalTrees = validData.reduce((sum, site) => sum + (site.numsaplings || 0), 0);
 
   // Filter data based on the selected filter status
   const filteredData = filter === 'All' ? data : data.filter(item => item.status === filter);
@@ -32,6 +36,9 @@ const App = () => {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+      <Helmet>
+        <title>Dashboard: Million Miyawaki Foundation</title>
+      </Helmet>
       <div className="statistics-section">
         <div className="stat-box">
           <label>Total Sites</label>
@@ -52,7 +59,7 @@ const App = () => {
             <option value="All">All</option>
             <option value="Completed">Completed</option>
             <option value="WIP">Work in Progress</option>
-            <option value="Approved">Approved by MCD</option>
+            <option value="Approved">Qualified</option>
           </select>
         </div>
         <Map data={filteredData} />

@@ -81,8 +81,8 @@ const Map = ({ data }) => {
                 <p>Latitude: {selectedMarker.latitude}</p>
                 <p>Longitude: {selectedMarker.longitude}</p>
                 <p>Last Inspection Date: {selectedMarker.plantationdate}</p>
-                {selectedMarker.image && (
-                  <a href={selectedMarker.image} target="_blank" rel="noopener noreferrer">
+                {selectedMarker.imageUrls.length > 0 && (
+                  <a href={selectedMarker.imageUrls[0]} target="_blank" rel="noopener noreferrer">
                     Click to see images
                   </a>
                 )}

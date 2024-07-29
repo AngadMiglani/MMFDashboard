@@ -22,6 +22,17 @@ const Map = ({ data }) => {
     setShowDetails(true);
   };
 
+  const convertToDMS = (decimal, isLat) => {
+    const absolute = Math.abs(decimal);
+    const degrees = Math.floor(absolute);
+    const minutesNotTruncated = (absolute - degrees) * 60;
+    const minutes = Math.floor(minutesNotTruncated);
+    const seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
+    const direction = decimal >= 0 ? (isLat ? "N" : "E") : (isLat ? "S" : "W");
+
+    return `${degrees}°${minutes}'${seconds}"${direction}`;
+  };
+
   return (
     <ReactMapGL
       initialViewState={{
@@ -78,8 +89,8 @@ const Map = ({ data }) => {
             {showDetails ? (
               <>
                 <p>Address: {selectedMarker.address}</p>
-                <p>Latitude: {selectedMarker.latitude}</p>
-                <p>Longitude: {selectedMarker.longitude}</p>
+                <p>Latitude: {convertToDMS(selectedMarker.latitude, true)}</p>
+                <p>Longitude: {convertToDMS(selectedMarker.longitude, false)}</p>
                 <p>Last Inspection Date: {selectedMarker.plantationdate}</p>
                 {selectedMarker.imageUrls.length > 0 && (
                   <a href={selectedMarker.imageUrls[0]} target="_blank" rel="noopener noreferrer">

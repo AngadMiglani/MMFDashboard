@@ -81,7 +81,7 @@ const Map = ({ data }) => {
                 <p>Latitude: {selectedMarker.latitude}</p>
                 <p>Longitude: {selectedMarker.longitude}</p>
                 <p>Last Inspection Date: {selectedMarker.plantationdate}</p>
-                <a href={selectedMarker.image} target="_blank" rel="noopener noreferrer">Click to see images</a>
+                <a href={selectedMarker.image} target="_self" rel="noopener noreferrer">Click to see images</a>
               </>
             ) : (
               <a onClick={() => handleMoreInfoClick(selectedMarker)}>

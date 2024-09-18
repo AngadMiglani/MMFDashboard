@@ -18,16 +18,15 @@ const App = () => {
     loadData();
   }, []);
 
-  // Filter data to only include completed or work in progress sites
-  const validData = data.filter(site => site.status === 'Completed' || site.status === 'WIP');
+  // Filter data based on the selected filter status
+  const validData = filter === 'All' 
+    ? data 
+    : data.filter(site => site.status === filter);
 
   // Calculate statistics
   const totalSites = validData.length;
   const totalArea = validData.reduce((sum, site) => sum + (site.area || 0), 0);
   const totalTrees = validData.reduce((sum, site) => sum + (site.numsaplings || 0), 0);
-
-  // Filter data based on the selected filter status
-  const filteredData = filter === 'All' ? data : data.filter(item => item.status === filter);
 
   // Handle changing of the filter
   const handleFilterChange = (e) => {
@@ -57,12 +56,14 @@ const App = () => {
         <div style={{ position: "absolute", top: 10, left: 10, zIndex: 1000 }}>
           <select onChange={handleFilterChange} id="filter-select">
             <option value="All">All</option>
-            <option value="Completed">Completed</option>
-            <option value="WIP">Work in Progress</option>
-            <option value="Approved">Qualified</option>
+            <option value="Completed">Plantation Done</option>
+            <option value="WIP">Plantation WIP</option>
+            <option value="Qualified">Qualified</option>
+            <option value="Allocated">Allocated</option>
+            <option value="Not Qualified">Not Qualified</option>
           </select>
         </div>
-        <Map data={filteredData} />
+        <Map data={validData} />
       </div>
     </div>
   );

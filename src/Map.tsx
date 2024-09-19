@@ -127,6 +127,7 @@ const Map = ({ data }) => {
                 <p>Latitude: {convertToDMS(selectedMarker.latitude, true)}</p>
                 <p>Longitude: {convertToDMS(selectedMarker.longitude, false)}</p>
                 <p>Plantation Date: {selectedMarker.plantationdate}</p>
+                <p>Last Inspection Date: {selectedMarker.lastinspectiondate}</p>
                 {selectedMarker.imageUrls.length > 0 && (
                   <a href={selectedMarker.imageUrls[0]} target="_blank" rel="noopener noreferrer">
                     Click to see images

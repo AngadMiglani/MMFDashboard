@@ -6,7 +6,7 @@ export const fetchDataFromSheet = async () => {
       )
     ).json();
 
-    return response.map(({ name, latitude, longitude, status, area, numsaplings, plantationdate, image, ...props }) => ({
+    return response.map(({ name, latitude, longitude, status, area, numsaplings, plantationdate, lastinspectiondate, image, ...props }) => ({
       name: name || "Unknown", // Provide a default value if name is not present
       latitude: latitude ? parseFloat(latitude) : 0, // Default to 0 if latitude is not present
       longitude: longitude ? parseFloat(longitude) : 0, // Default to 0 if longitude is not present
@@ -14,6 +14,7 @@ export const fetchDataFromSheet = async () => {
       area: area ? parseInt(area) : 0, // Default to 0 if area is not present
       numsaplings: numsaplings ? parseInt(numsaplings) : 0, // Default to 0 if numsaplings is not present
       plantationdate: plantationdate || "Unknown", // Provide a default value if plantationdate is not present
+      lastinspectiondate: lastinspectiondate || "Unknown", // Provide a default value if lastinspectiondate is not present
       imageUrls: image ? image.split(',') : [], // Split image URLs into an array or use an empty array if not present
       ...props,
     }));

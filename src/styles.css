@@ -108,3 +108,30 @@ select {
   border-radius: 10px; /* Match tooltip border radius */
   margin-top: 5px; /* Add margin to the top */
 }
+
+/* New legend styles */
+.legend-box {
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.legend-item img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.legend-item span {
+  font-size: 14px;
+  color: #333;
+}

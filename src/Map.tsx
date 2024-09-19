@@ -2,17 +2,45 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import React, { useState } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
+// Legend Component
+const Legend = () => {
+  return (
+    <div className="legend-box">
+      <div className="legend-item">
+        <img src="/free-map-marker-icon-green-darker.png" alt="Plantation Done" />
+        <span>Plantation Done</span>
+      </div>
+      <div className="legend-item">
+        <img src="/free-map-marker-icon-orange.png" alt="Plantation WIP" />
+        <span>Plantation WIP</span>
+      </div>
+      <div className="legend-item">
+        <img src="/free-map-marker-icon-green.png" alt="Allocated" />
+        <span>Allocated</span>
+      </div>
+      <div className="legend-item">
+        <img src="/free-map-marker-icon-pink.png" alt="Not Qualified" />
+        <span>Not Qualified</span>
+      </div>
+      <div className="legend-item">
+        <img src="/free-map-marker-icon-blue-darker.png" alt="Qualified" />
+        <span>Qualified</span>
+      </div>
+    </div>
+  );
+};
+
 const Map = ({ data }) => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
 
   const markerImages = {
-    "Completed": "/free-map-marker-icon-green-darker.png", // Updated icon
-    "WIP": "/free-map-marker-icon-orange.png", // Updated icon
-    "Allocated": "/free-map-marker-icon-green.png", // New status
-    "Not Qualified": "/free-map-marker-icon-pink.png", // New status
-    "Qualified": "/free-map-marker-icon-blue-darker.png", // Unchanged
-    default: "/free-map-marker-icon-green-darker.png", // Updated default icon
+    "Completed": "/free-map-marker-icon-green-darker.png",
+    "WIP": "/free-map-marker-icon-orange.png",
+    "Allocated": "/free-map-marker-icon-green.png",
+    "Not Qualified": "/free-map-marker-icon-pink.png",
+    "Qualified": "/free-map-marker-icon-blue-darker.png",
+    default: "/free-map-marker-icon-green-darker.png",
   };
 
   const getMarkerImage = (point) => {
@@ -46,6 +74,11 @@ const Map = ({ data }) => {
       mapStyle="mapbox://styles/mapbox/streets-v11"
       style={{ width: "100%", height: "100%" }}
     >
+      {/* Legend placed in the top right */}
+      <div style={{ position: "absolute", top: 10, right: 10, zIndex: 1000 }}>
+        <Legend />
+      </div>
+
       {data.map((point) => (
         <Marker
           key={point.id}
@@ -56,8 +89,8 @@ const Map = ({ data }) => {
             style={{
               border: "none",
               background: "transparent",
-              width: selectedMarker === point ? "54px" : "40px", // Increase size for selected marker
-              height: selectedMarker === point ? "48px" : "32px", // Increase size for selected marker
+              width: selectedMarker === point ? "54px" : "40px", 
+              height: selectedMarker === point ? "48px" : "32px", 
             }}
             onClick={() => {
               setSelectedMarker(point);

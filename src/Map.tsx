@@ -7,8 +7,8 @@ const Map = ({ data }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const markerImages = {
-    "Plantation Done": "/free-map-marker-icon-green-darker.png", // Updated icon
-    "Plantation WIP": "/free-map-marker-icon-orange.png", // Updated icon
+    "Completed": "/free-map-marker-icon-green-darker.png", // Updated icon
+    "WIP": "/free-map-marker-icon-orange.png", // Updated icon
     "Allocated": "/free-map-marker-icon-green.png", // New status
     "Not Qualified": "/free-map-marker-icon-pink.png", // New status
     "Qualified": "/free-map-marker-icon-blue-darker.png", // Unchanged

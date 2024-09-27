@@ -83,8 +83,8 @@ const Map = ({ data }) => {
             style={{
               border: "none",
               background: "transparent",
-              width: selectedMarker === point ? "54px" : "40px", 
-              height: selectedMarker === point ? "48px" : "32px", 
+              width: selectedMarker === point ? "54px" : "40px",
+              height: selectedMarker === point ? "48px" : "32px",
             }}
             onClick={() => {
               setSelectedMarker(point);

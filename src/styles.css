@@ -1,35 +1,79 @@
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+html, body {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+select {
+  padding: 8px;
+  margin: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+#filter-select {
+  position: absolute;
+  top: 10px;
+  left: 10px;
   z-index: 1000;
 }
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 600px;
-  width: 90%;
-  text-align: center;
+.statistics-section {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ccc;
 }
 
-.modal-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: black;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  font-size: 16px;
-  cursor: pointer;
+.stat-box {
+  padding: 10px;
+  border: 2px solid #ccc; /* Grey border around each stat box */
+  border-radius: 5px;
+  background-color: white;
+  text-align: center;
+  width: 150px;
 }
+
+.stat-box label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.stat-box p {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.mapboxgl-popup {
+  border: 2px solid black; /* Black border around the tooltip */
+  border-radius: 10px; /* Rounded corners */
+}
+
+.mapboxgl-popup-content {
+  background: white;
+  padding: 10px; /* Reduce padding */
+  border-radius: 8px; /* Inner radius to match outer */
+  border: none; /* Remove inner border */
+  white-space: normal;
+  max-width: 250px; /* Reduce max-width */
+  word-wrap: break-word; /* Ensure long words or URLs break properly */
+  overflow: hidden; /* Prevent content overflow */
+  text-align: left; /* Left align text */
+}
+
+.mapboxgl-popup-tip {
+  border-top-color: black !important; /* Ensure the popup tip has the same border color */
+}
+
+.tooltip strong {
+  display: block;
+  margin-bottom: 5px; /* Decrease margin */
+ 

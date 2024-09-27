@@ -32,7 +32,6 @@ const Legend = () => {
 
 const Map = ({ data }) => {
   const [selectedMarker, setSelectedMarker] = useState(null);
-  const [showDetails, setShowDetails] = useState(false);
 
   const markerImages = {
     "Completed": "/free-map-marker-icon-green-darker.png",
@@ -45,11 +44,6 @@ const Map = ({ data }) => {
 
   const getMarkerImage = (point) => {
     return markerImages[point.status] || markerImages.default;
-  };
-
-  const handleMoreInfoClick = (point) => {
-    setSelectedMarker(point);
-    setShowDetails(true);
   };
 
   const convertToDMS = (decimal, isLat) => {
@@ -94,7 +88,6 @@ const Map = ({ data }) => {
             }}
             onClick={() => {
               setSelectedMarker(point);
-              setShowDetails(false);
             }}
           >
             <img
@@ -121,22 +114,13 @@ const Map = ({ data }) => {
           <div className="mapboxgl-popup-content tooltip">
             <strong>{selectedMarker.name}</strong>
             <p>Trees Planted: {selectedMarker.numsaplings}</p>
-            {showDetails ? (
-              <>
-                <p>Address: {selectedMarker.address}</p>
-                <p>Latitude: {convertToDMS(selectedMarker.latitude, true)}</p>
-                <p>Longitude: {convertToDMS(selectedMarker.longitude, false)}</p>
-                <p>Plantation Date: {selectedMarker.plantationdate}</p>
-                <p>Last Inspection Date: {selectedMarker.lastinspectiondate}</p>
-                {selectedMarker.imageUrls.length > 0 && (
-                  <a href={selectedMarker.imageUrls[0]} target="_blank" rel="noopener noreferrer">
-                    Click to see images
-                  </a>
-                )}
-              </>
-            ) : (
-              <a onClick={() => handleMoreInfoClick(selectedMarker)}>
-                View Details
+            <p>Address: {selectedMarker.address}</p>
+            <p>Latitude: {convertToDMS(selectedMarker.latitude, true)}</p>
+            <p>Longitude: {convertToDMS(selectedMarker.longitude, false)}</p>
+            <p>Plantation Date: {selectedMarker.plantationdate}</p>
+            {selectedMarker.imageUrls.length > 0 && (
+              <a href={selectedMarker.imageUrls[0]} target="_blank" rel="noopener noreferrer">
+                Click to see images
               </a>
             )}
           </div>

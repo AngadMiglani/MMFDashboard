@@ -19,12 +19,12 @@ const Legend = () => {
   return (
     <div className="legend-box">
       <div className="legend-item">
-        <img src="/free-map-marker-icon-green-darker.png" alt="Plantation Done" />
-        <span>Plantation Done</span>
+        <img src="/free-map-marker-icon-green-darker.png" alt="Completed" />
+        <span>Completed</span>
       </div>
       <div className="legend-item">
-        <img src="/free-map-marker-icon-orange.png" alt="Plantation WIP" />
-        <span>Plantation WIP</span>
+        <img src="/free-map-marker-icon-orange.png" alt="WIP" />
+        <span>WIP</span>
       </div>
       <div className="legend-item">
         <img src="/free-map-marker-icon-green.png" alt="Allocated" />

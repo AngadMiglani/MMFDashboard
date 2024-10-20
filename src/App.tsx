@@ -56,8 +56,8 @@ const App = () => {
         <div style={{ position: "absolute", top: 10, left: 10, zIndex: 1000 }}>
           <select onChange={handleFilterChange} id="filter-select">
             <option value="All">All</option>
-            <option value="Completed">Plantation Done</option>
-            <option value="WIP">Plantation WIP</option>
+            <option value="Completed">Completed</option>
+            <option value="WIP">WIP</option>
             <option value="Qualified">Qualified</option>
             <option value="Allocated">Allocated</option>
             <option value="Not Qualified">Not Qualified</option>

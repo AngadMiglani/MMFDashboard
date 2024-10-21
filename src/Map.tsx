@@ -83,7 +83,7 @@ const Map = ({ data }) => {
       <ReactMapGL
         initialViewState={{
           zoom: 9,
-          latitude: 28.53,
+          latitude: 28.43,
           longitude: 77.22,
         }}
         mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"

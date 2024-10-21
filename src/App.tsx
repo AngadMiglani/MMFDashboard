@@ -32,7 +32,10 @@ const App = () => {
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
-
+  // Function to convert number with commas
+  function formatNumberWithCommas(number) {
+    return number.toLocaleString();
+  }
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Helmet>
@@ -40,16 +43,16 @@ const App = () => {
       </Helmet>
       <div className="statistics-section">
         <div className="stat-box">
-          <label>Total Sites</label>
-          <p>{totalSites}</p>
+          <label>Sites</label>
+          <p>{formatNumberWithCommas(totalSites)}</p>
         </div>
         <div className="stat-box">
-          <label>Area Planted</label>
-          <p>{totalArea}</p>
+          <label>Area</label>
+          <p>{formatNumberWithCommas(totalArea)} sq.ft.</p>
         </div>
         <div className="stat-box">
-          <label>Trees Planted</label>
-          <p>{totalTrees}</p>
+          <label>Trees</label>
+          <p>{formatNumberWithCommas(totalTrees)}</p>
         </div>
       </div>
       <div style={{ flex: 1, position: "relative" }}>

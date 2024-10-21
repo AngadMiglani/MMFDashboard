@@ -66,8 +66,9 @@ const App = () => {
         </div>
       </div>
       <div style={{ flex: 1, position: "relative" }}>
-        <div style={{ position: "absolute", top: 10, left: "50%", transform: "translateX(-50%)", zIndex: 1000, textAlign: "center" }}>
-          <select onChange={handleFilterChange} id="filter-select" style={{ display: "block", marginBottom: "10px" }}>
+        {/* Dropdown on the left */}
+        <div style={{ position: "absolute", top: 10, left: 10, zIndex: 1000 }}>
+          <select onChange={handleFilterChange} id="filter-select">
             <option value="All">All</option>
             <option value="Completed">Completed</option>
             <option value="WIP">WIP</option>
@@ -75,6 +76,10 @@ const App = () => {
             <option value="Allocated">Allocated</option>
             <option value="Not Qualified">Not Qualified</option>
           </select>
+        </div>
+
+        {/* Search box in the center */}
+        <div style={{ position: "absolute", top: 10, left: "50%", transform: "translateX(-50%)", zIndex: 1000 }}>
           <input
             type="text"
             placeholder="Search by site name"
@@ -89,6 +94,7 @@ const App = () => {
             }}
           />
         </div>
+
         <Map data={validData} />
       </div>
     </div>

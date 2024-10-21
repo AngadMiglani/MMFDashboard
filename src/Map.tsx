@@ -23,19 +23,19 @@ const Legend = () => {
         <span>Completed</span>
       </div>
       <div className="legend-item">
-        <img src="/free-map-marker-icon-orange.png" alt="WIP" />
+        <img src="/free-map-marker-icon-green.png" alt="WIP" />
         <span>WIP</span>
       </div>
       <div className="legend-item">
-        <img src="/free-map-marker-icon-green.png" alt="Allocated" />
+        <img src="/free-map-marker-icon-blue-darker.png" alt="Allocated" />
         <span>Allocated</span>
       </div>
       <div className="legend-item">
-        <img src="/free-map-marker-icon-pink.png" alt="Not Qualified" />
+        <img src="/free-map-marker-icon-red.png" alt="Not Qualified" />
         <span>Not Qualified</span>
       </div>
       <div className="legend-item">
-        <img src="/free-map-marker-icon-blue-darker.png" alt="Qualified" />
+        <img src="/free-map-marker-icon-orange.png" alt="Qualified" />
         <span>Qualified</span>
       </div>
     </div>
@@ -48,11 +48,11 @@ const Map = ({ data }) => {
 
   const markerImages = {
     "Completed": "/free-map-marker-icon-green-darker.png",
-    "WIP": "/free-map-marker-icon-orange.png",
-    "Allocated": "/free-map-marker-icon-green.png",
-    "Not Qualified": "/free-map-marker-icon-pink.png",
-    "Qualified": "/free-map-marker-icon-blue-darker.png",
-    default: "/free-map-marker-icon-green-darker.png",
+    "WIP": "/free-map-marker-icon-green.png",
+    "Allocated": "/free-map-marker-icon-blue-darker.png",
+    "Not Qualified": "/free-map-marker-icon-red.png",
+    "Qualified": "/free-map-marker-icon-orange.png",
+    default: "/free-map-marker-icon-orange.png",
   };
 
   const getMarkerImage = (point) => {

@@ -66,8 +66,8 @@ const App = () => {
         </div>
       </div>
       <div style={{ flex: 1, position: "relative" }}>
-        <div style={{ position: "absolute", top: 10, left: 10, zIndex: 1000 }}>
-          <select onChange={handleFilterChange} id="filter-select">
+        <div style={{ position: "absolute", top: 10, left: "50%", transform: "translateX(-50%)", zIndex: 1000, textAlign: "center" }}>
+          <select onChange={handleFilterChange} id="filter-select" style={{ display: "block", marginBottom: "10px" }}>
             <option value="All">All</option>
             <option value="Completed">Completed</option>
             <option value="WIP">WIP</option>
@@ -81,11 +81,11 @@ const App = () => {
             value={searchTerm}
             onChange={handleSearchChange}
             style={{
-              marginTop: "10px",
               padding: "8px",
               border: "1px solid #ccc",
               borderRadius: "5px",
-              width: "200px",
+              width: "300px",
+              textAlign: "center",
             }}
           />
         </div>

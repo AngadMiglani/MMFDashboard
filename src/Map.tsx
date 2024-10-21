@@ -82,7 +82,7 @@ const Map = ({ data }) => {
     <>
       <ReactMapGL
         initialViewState={{
-          zoom: 10,
+          zoom: 8,
           latitude: 28.53,
           longitude: 77.22,
         }}

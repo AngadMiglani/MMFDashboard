@@ -82,7 +82,7 @@ const Map = ({ data }) => {
     <>
       <ReactMapGL
         initialViewState={{
-          zoom: 8,
+          zoom: 9,
           latitude: 28.53,
           longitude: 77.22,
         }}
@@ -136,7 +136,6 @@ const Map = ({ data }) => {
             <div className="mapboxgl-popup-content tooltip">
               <strong>{selectedMarker.name}</strong>
               <p>Trees Planted: {selectedMarker.numsaplings}</p>
-              <p>Address: {selectedMarker.address}</p>
               <p>Latitude: {convertToDMS(selectedMarker.latitude, true)}</p>
               <p>Longitude: {convertToDMS(selectedMarker.longitude, false)}</p>
               <p>Plantation Date: {selectedMarker.plantationdate}</p>

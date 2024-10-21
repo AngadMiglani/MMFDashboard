@@ -7,6 +7,7 @@ import "./styles.css"; // Ensure styles are imported
 const App = () => {
   const [data, setData] = useState([]); // Holds all the fetched data
   const [filter, setFilter] = useState('All'); // Manages the current filter status
+  const [searchTerm, setSearchTerm] = useState(''); // Manages the search term
 
   // Fetch data on component mount
   useEffect(() => {
@@ -18,10 +19,12 @@ const App = () => {
     loadData();
   }, []);
 
-  // Filter data based on the selected filter status
-  const validData = filter === 'All' 
-    ? data 
-    : data.filter(site => site.status === filter);
+  // Filter data based on the dropdown status and search term
+  const validData = data.filter((site) => {
+    const matchesFilter = filter === 'All' || site.status === filter;
+    const matchesSearch = site.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
 
   // Calculate statistics
   const totalSites = validData.length;
@@ -32,10 +35,17 @@ const App = () => {
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
+
+  // Handle changing of the search term
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   // Function to convert number with commas
   function formatNumberWithCommas(number) {
     return number.toLocaleString();
   }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Helmet>
@@ -65,6 +75,19 @@ const App = () => {
             <option value="Allocated">Allocated</option>
             <option value="Not Qualified">Not Qualified</option>
           </select>
+          <input
+            type="text"
+            placeholder="Search by site name"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            style={{
+              marginTop: "10px",
+              padding: "8px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              width: "200px",
+            }}
+          />
         </div>
         <Map data={validData} />
       </div>

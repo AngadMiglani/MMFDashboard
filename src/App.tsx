@@ -67,7 +67,7 @@ const App = () => {
       </div>
       <div style={{ flex: 1, position: "relative" }}>
         {/* Dropdown on the left */}
-        <div style={{ position: "absolute", top: 10, left: 10, zIndex: 1000 }}>
+        <div style={{ position: "absolute", top: 20, left: 10, zIndex: 1000 }}>
           <select onChange={handleFilterChange} id="filter-select">
             <option value="All">All</option>
             <option value="Completed">Completed</option>
@@ -79,7 +79,7 @@ const App = () => {
         </div>
 
         {/* Search box in the center */}
-        <div style={{ position: "absolute", top: 10, left: "50%", transform: "translateX(-50%)", zIndex: 1000 }}>
+        <div style={{ position: "absolute", top: 20, left: "50%", transform: "translateX(-50%)", zIndex: 1000 }}>
           <input
             type="text"
             placeholder="Search by site name"

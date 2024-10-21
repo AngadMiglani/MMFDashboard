@@ -1,13 +1,21 @@
 import "mapbox-gl/dist/mapbox-gl.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
 import React, { useState } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import { Carousel } from "react-responsive-carousel"; // Import carousel component
 
-// Modal Component to display the image
-const ImageModal = ({ imageUrl, onClose }) => {
+// Modal Component to display the image carousel
+const ImageModal = ({ imageUrls, onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content">
-        <img src={imageUrl} alt="Site Image" style={{ width: "100%" }} />
+        <Carousel>
+          {imageUrls.map((imageUrl, index) => (
+            <div key={index}>
+              <img src={imageUrl} alt={`Site Image ${index + 1}`} style={{ width: "100%" }} />
+            </div>
+          ))}
+        </Carousel>
         <button className="modal-close" onClick={onClose}>X</button>
       </div>
     </div>
@@ -44,7 +52,7 @@ const Legend = () => {
 
 const Map = ({ data }) => {
   const [selectedMarker, setSelectedMarker] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null); // To store the image URL for modal
+  const [imageUrls, setImageUrls] = useState([]); // Store the image URLs for modal
 
   const markerImages = {
     "Completed": "/free-map-marker-icon-green-darker.png",
@@ -70,12 +78,12 @@ const Map = ({ data }) => {
     return `${degrees}°${minutes}'${seconds}"${direction}`;
   };
 
-  const handleImageClick = (imageUrl) => {
-    setImageUrl(imageUrl); // Set the image URL to show in modal
+  const handleImageClick = (imageUrls) => {
+    setImageUrls(imageUrls); // Set the image URLs to show in the carousel
   };
 
   const closeModal = () => {
-    setImageUrl(null); // Close modal by clearing image URL
+    setImageUrls([]); // Close modal by clearing image URLs
   };
 
   return (
@@ -83,7 +91,7 @@ const Map = ({ data }) => {
       <ReactMapGL
         initialViewState={{
           zoom: 9,
-          latitude: 28.63,
+          latitude: 28.53,
           longitude: 77.22,
         }}
         mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
@@ -145,7 +153,7 @@ const Map = ({ data }) => {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleImageClick(selectedMarker.imageUrls[0]);
+                    handleImageClick(selectedMarker.imageUrls);
                   }}
                 >
                   Click to see images
@@ -156,8 +164,8 @@ const Map = ({ data }) => {
         )}
       </ReactMapGL>
 
-      {/* Render modal if imageUrl is set */}
-      {imageUrl && <ImageModal imageUrl={imageUrl} onClose={closeModal} />}
+      {/* Render modal with carousel if imageUrls is set */}
+      {imageUrls.length > 0 && <ImageModal imageUrls={imageUrls} onClose={closeModal} />}
     </>
   );
 };

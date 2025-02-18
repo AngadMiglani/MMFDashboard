@@ -123,8 +123,7 @@ const Map = ({ data }) => {
               <p>Longitude: {selectedMarker.longitude}</p>
               <p>Plantation Date: {selectedMarker.plantationdate}</p>
               <p>Last Inspection Date: {selectedMarker.lastinspectiondate}</p>
-              {selectedMarker.image && selectedMarker.schoolId && (
-                <a
+              <a
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
@@ -132,8 +131,8 @@ const Map = ({ data }) => {
                   }}
                 >
                   Click to see images
-                </a>
-              )}
+              </a>
+              
             </div>
           </Popup>
         )}

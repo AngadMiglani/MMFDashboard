@@ -6,7 +6,7 @@ export const fetchDataFromSheet = async () => {
       )
     ).json();
 
-    return response.map(({ name, latitude, longitude, status, area, numsaplings, plantationdate, lastinspectiondate, image, ...props }) => ({
+    return response.map(({ name, latitude, longitude, status, area, numsaplings, plantationdate, lastinspectiondate, image, schoolId ...props }) => ({
       name: name || "Unknown", // Provide a default value if name is not present
       latitude: latitude ? parseFloat(latitude) : 0, // Default to 0 if latitude is not present
       longitude: longitude ? parseFloat(longitude) : 0, // Default to 0 if longitude is not present

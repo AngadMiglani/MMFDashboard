@@ -49,7 +49,7 @@ const App = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Helmet>
-        <title>Welcome - Million Miyawaki Dashboard</title>
+        <title>MillionMiyawaki Dashboard</title>
       </Helmet>
       <div className="statistics-section">
         <div className="stat-box">

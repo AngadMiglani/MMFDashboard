@@ -15,7 +15,7 @@ export const fetchDataFromSheet = async () => {
       numsaplings: numsaplings ? parseInt(numsaplings) : 0, // Default to 0 if numsaplings is not present
       plantationdate: plantationdate || "Unknown", // Provide a default value if plantationdate is not present
       lastinspectiondate: lastinspectiondate || "Unknown", // Provide a default value if lastinspectiondate is not present
-      imageUrls: image ? image.split(',') : [], // Split image URLs into an array or use an empty array if not present
+      image: image || "", // Base URL for images (folder URL)
       ...props,
     }));
   } catch (error) {

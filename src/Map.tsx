@@ -1,8 +1,8 @@
 import "mapbox-gl/dist/mapbox-gl.css";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel styles
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import React, { useState } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
-import { Carousel } from "react-responsive-carousel"; // Import carousel component
+import { Carousel } from "react-responsive-carousel";
 
 // Modal Component to display the image carousel
 const ImageModal = ({ imageUrls, onClose }) => {
@@ -67,23 +67,16 @@ const Map = ({ data }) => {
     return markerImages[point.status] || markerImages.default;
   };
 
-  const convertToDMS = (decimal, isLat) => {
-    const absolute = Math.abs(decimal);
-    const degrees = Math.floor(absolute);
-    const minutesNotTruncated = (absolute - degrees) * 60;
-    const minutes = Math.floor(minutesNotTruncated);
-    const seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
-    const direction = decimal >= 0 ? (isLat ? "N" : "E") : (isLat ? "S" : "W");
+  const handleImageClick = (imageBaseUrl, schoolId) => {
+    // Construct image URLs using the pattern
+    const folderPath = `${imageBaseUrl}${schoolId}/`;
+    const images = Array.from({ length: 5 }, (_, i) => `${folderPath}image${i + 1}.jpg`);
 
-    return `${degrees}°${minutes}'${seconds}"${direction}`;
-  };
-
-  const handleImageClick = (imageUrls) => {
-    setImageUrls(imageUrls); // Set the image URLs to show in the carousel
+    setImageUrls(images); // Set the image URLs to show in the carousel
   };
 
   const closeModal = () => {
-    setImageUrls([]); // Close modal by clearing image URLs
+    setImageUrls([]);
   };
 
   return (
@@ -104,11 +97,7 @@ const Map = ({ data }) => {
         </div>
 
         {data.map((point) => (
-          <Marker
-            key={point.id}
-            latitude={point.latitude}
-            longitude={point.longitude}
-          >
+          <Marker key={point.id} latitude={point.latitude} longitude={point.longitude}>
             <button
               style={{
                 border: "none",
@@ -120,40 +109,26 @@ const Map = ({ data }) => {
                 setSelectedMarker(point);
               }}
             >
-              <img
-                src={getMarkerImage(point)}
-                alt="Marker"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-              />
+              <img src={getMarkerImage(point)} alt="Marker" style={{ width: "100%", height: "100%" }} />
             </button>
           </Marker>
         ))}
 
         {selectedMarker && (
-          <Popup
-            latitude={selectedMarker.latitude}
-            longitude={selectedMarker.longitude}
-            onClose={() => setSelectedMarker(null)}
-            closeOnClick={false}
-            anchor="top"
-            className="mapboxgl-popup"
-          >
+          <Popup latitude={selectedMarker.latitude} longitude={selectedMarker.longitude} onClose={() => setSelectedMarker(null)} closeOnClick={false} anchor="top" className="mapboxgl-popup">
             <div className="mapboxgl-popup-content tooltip">
               <strong>{selectedMarker.name}</strong>
               <p>Trees Planted: {selectedMarker.numsaplings}</p>
-              <p>Latitude: {convertToDMS(selectedMarker.latitude, true)}</p>
-              <p>Longitude: {convertToDMS(selectedMarker.longitude, false)}</p>
+              <p>Latitude: {selectedMarker.latitude}</p>
+              <p>Longitude: {selectedMarker.longitude}</p>
               <p>Plantation Date: {selectedMarker.plantationdate}</p>
               <p>Last Inspection Date: {selectedMarker.lastinspectiondate}</p>
-              {selectedMarker.imageUrls.length > 0 && (
+              {selectedMarker.image && selectedMarker.schoolId && (
                 <a
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleImageClick(selectedMarker.imageUrls);
+                    handleImageClick(selectedMarker.image, selectedMarker.schoolId);
                   }}
                 >
                   Click to see images

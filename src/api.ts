@@ -16,6 +16,7 @@ export const fetchDataFromSheet = async () => {
       plantationdate: plantationdate || "Unknown", // Provide a default value if plantationdate is not present
       lastinspectiondate: lastinspectiondate || "Unknown", // Provide a default value if lastinspectiondate is not present
       image: image || "", // Base URL for images (folder URL)
+      schoolId: schoolId || "", // School ID to be used in constructing the image folder path
       ...props,
     }));
   } catch (error) {

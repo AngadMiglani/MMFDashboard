@@ -8,7 +8,7 @@ import { Carousel } from "react-responsive-carousel";
 const ImageModal = ({ imageUrls, onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content">
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}> {/* Prevent click propagation */}
         <Carousel>
           {imageUrls.map((imageUrl, index) => (
             <div key={index}>

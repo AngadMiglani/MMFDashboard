@@ -128,7 +128,9 @@ const Map = ({ data }) => {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleImageClick(selectedMarker.image, selectedMarker.schoolId);
+                    //handleImageClick(selectedMarker.image, selectedMarker.schoolId);
+                    handleImageClick("https://www.angadmiglani.com/img/", selectedMarker.schoolId);
+                    //hardcoded the URL - dynamic to be implemented later. So now the image field works as a flag only
                   }}
                 >
                   Click to see images

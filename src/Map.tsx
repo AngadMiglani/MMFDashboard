@@ -79,10 +79,10 @@ const Map = ({ data }) => {
 
   const handleImageClick = async (folderId) => {
     setLoadingImages(true);
-    console.log(folderId);
     const images = await fetchImagesFromDriveFolder(folderId);
-    console.log(imageUrls); // add this inside your component just before rendering the modal
+    console.log(images); // add this inside your component just before rendering the modal
     setImageUrls(images);
+    console.log(imageUrls); // add this inside your component just before rendering the modal
     setLoadingImages(false);
   };
 

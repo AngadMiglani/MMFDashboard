@@ -1,20 +1,17 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { Carousel } from "react-responsive-carousel";
-import { fetchImagesFromDriveFolder } from "./driveUtils";
-
-const GOOGLE_API_KEY = "AIzaSyADWvsv4yDUy257HC8icbKkrgRUgQFOi9k";
 
 // Modal Component
 const ImageModal = ({ imageUrls, onClose }) => (
   <div className="modal-overlay" onClick={onClose}>
     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-      <Carousel>
-        {imageUrls.map((url, i) => (
-          <div key={i}>
-            <img src={url} alt={`Image ${i + 1}`} style={{ width: "100%" }} />
+      <Carousel showThumbs={false}>
+        {imageUrls.map((url, index) => (
+          <div key={index}>
+            <img src={url} alt={`Image ${index + 1}`} />
           </div>
         ))}
       </Carousel>
@@ -23,10 +20,29 @@ const ImageModal = ({ imageUrls, onClose }) => (
   </div>
 );
 
-// Legend Component (unchanged)
+// Legend Component
 const Legend = () => (
   <div className="legend-box">
-    {/* ... icon list as earlier ... */}
+    <div className="legend-item">
+      <img src="/free-map-marker-icon-green-darker.png" alt="Completed" />
+      <span>Completed</span>
+    </div>
+    <div className="legend-item">
+      <img src="/free-map-marker-icon-green.png" alt="WIP" />
+      <span>WIP</span>
+    </div>
+    <div className="legend-item">
+      <img src="/free-map-marker-icon-blue-darker.png" alt="Allocated" />
+      <span>Allocated</span>
+    </div>
+    <div className="legend-item">
+      <img src="/free-map-marker-icon-red.png" alt="Not Qualified" />
+      <span>Not Qualified</span>
+    </div>
+    <div className="legend-item">
+      <img src="/free-map-marker-icon-orange.png" alt="Qualified" />
+      <span>Qualified</span>
+    </div>
   </div>
 );
 
@@ -35,28 +51,44 @@ const Map = ({ data }) => {
   const [imageUrls, setImageUrls] = useState([]);
 
   const markerImages = {
-    Completed: "/free-map-marker-icon-green-darker.png",
-    WIP: "/free-map-marker-icon-green.png",
-    Allocated: "/free-map-marker-icon-blue-darker.png",
+    "Completed": "/free-map-marker-icon-green-darker.png",
+    "WIP": "/free-map-marker-icon-green.png",
+    "Allocated": "/free-map-marker-icon-blue-darker.png",
     "Not Qualified": "/free-map-marker-icon-red.png",
-    Qualified: "/free-map-marker-icon-orange.png",
+    "Qualified": "/free-map-marker-icon-orange.png",
     default: "/free-map-marker-icon-orange.png",
   };
 
-  const getMarkerImage = (point) => markerImages[point.status] || markerImages.default;
-
-  const handleImageClick = async (folderUrl) => {
-    const images = await fetchImagesFromDriveFolder(folderUrl, GOOGLE_API_KEY);
-    setImageUrls(images);
+  const getMarkerImage = (point) => {
+    return markerImages[point.status] || markerImages.default;
   };
 
-  const closeModal = () => setImageUrls([]);
+  const convertToDMS = (decimal, isLat) => {
+    const absolute = Math.abs(decimal);
+    const degrees = Math.floor(absolute);
+    const minutesNotTruncated = (absolute - degrees) * 60;
+    const minutes = Math.floor(minutesNotTruncated);
+    const seconds = ((minutesNotTruncated - minutes) * 60).toFixed(2);
+    const direction = decimal >= 0 ? (isLat ? "N" : "E") : (isLat ? "S" : "W");
+    return `${degrees}°${minutes}'${seconds}"${direction}`;
+  };
+
+  const fetchDriveImages = async (folderId) => {
+    try {
+      const response = await fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents+and+(mimeType='image/jpeg'+or+mimeType='image/png')&key=AIzaSyADWvsv4yDUy257HC8icbKkrgRUgQFOi9k`);
+      const data = await response.json();
+      const urls = data.files.map(file => `https://drive.google.com/uc?id=${file.id}`);
+      setImageUrls(urls);
+    } catch (error) {
+      console.error("Error fetching images from Drive:", error);
+    }
+  };
 
   return (
     <>
       <ReactMapGL
         initialViewState={{ zoom: 9, latitude: 28.53, longitude: 77.22 }}
-        mapboxAccessToken="your-mapbox-token"
+        mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
         mapStyle="mapbox://styles/mapbox/streets-v11"
         style={{ width: "100%", height: "100%" }}
       >
@@ -92,8 +124,8 @@ const Map = ({ data }) => {
             <div className="mapboxgl-popup-content tooltip">
               <strong>{selectedMarker.name}</strong>
               <p>Trees Planted: {selectedMarker.numsaplings}</p>
-              <p>Latitude: {selectedMarker.latitude}</p>
-              <p>Longitude: {selectedMarker.longitude}</p>
+              <p>Latitude: {convertToDMS(selectedMarker.latitude, true)}</p>
+              <p>Longitude: {convertToDMS(selectedMarker.longitude, false)}</p>
               <p>Plantation Date: {selectedMarker.plantationdate}</p>
               <p>Last Inspection Date: {selectedMarker.lastinspectiondate}</p>
               {selectedMarker.image && (
@@ -101,7 +133,7 @@ const Map = ({ data }) => {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleImageClick(selectedMarker.image);
+                    fetchDriveImages(selectedMarker.image);
                   }}
                 >
                   Click to see images
@@ -112,7 +144,7 @@ const Map = ({ data }) => {
         )}
       </ReactMapGL>
 
-      {imageUrls.length > 0 && <ImageModal imageUrls={imageUrls} onClose={closeModal} />}
+      {imageUrls.length > 0 && <ImageModal imageUrls={imageUrls} onClose={() => setImageUrls([])} />}
     </>
   );
 };

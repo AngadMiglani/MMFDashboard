@@ -1,24 +1,27 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { Carousel } from "react-responsive-carousel";
+import { fetchImagesFromDriveFolder } from "./driveUtils";
 
 // Modal Component
-const ImageModal = ({ imageUrls, onClose }) => (
-  <div className="modal-overlay" onClick={onClose}>
-    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-      <Carousel showThumbs={false}>
-        {imageUrls.map((url, index) => (
-          <div key={index}>
-            <img src={url} alt={`Image ${index + 1}`} />
-          </div>
-        ))}
-      </Carousel>
-      <button className="modal-close" onClick={onClose}>X</button>
+const ImageModal = ({ imageUrls, onClose }) => {
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <Carousel showThumbs={false}>
+          {imageUrls.map((url, index) => (
+            <div key={index}>
+              <img src={url} alt={`Site Image ${index + 1}`} style={{ width: "100%" }} />
+            </div>
+          ))}
+        </Carousel>
+        <button className="modal-close" onClick={onClose}>X</button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Legend Component
 const Legend = () => (
@@ -49,6 +52,7 @@ const Legend = () => (
 const Map = ({ data }) => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
+  const [loadingImages, setLoadingImages] = useState(false);
 
   const markerImages = {
     "Completed": "/free-map-marker-icon-green-darker.png",
@@ -73,25 +77,30 @@ const Map = ({ data }) => {
     return `${degrees}°${minutes}'${seconds}"${direction}`;
   };
 
-  const fetchDriveImages = async (folderId) => {
-    try {
-      const response = await fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents+and+(mimeType='image/jpeg'+or+mimeType='image/png')&key=AIzaSyADWvsv4yDUy257HC8icbKkrgRUgQFOi9k`);
-      const data = await response.json();
-      const urls = data.files.map(file => `https://drive.google.com/uc?id=${file.id}`);
-      setImageUrls(urls);
-    } catch (error) {
-      console.error("Error fetching images from Drive:", error);
-    }
+  const handleImageClick = async (folderId) => {
+    setLoadingImages(true);
+    const images = await fetchImagesFromDriveFolder(folderId);
+    setImageUrls(images);
+    setLoadingImages(false);
+  };
+
+  const closeModal = () => {
+    setImageUrls([]);
   };
 
   return (
     <>
       <ReactMapGL
-        initialViewState={{ zoom: 9, latitude: 28.53, longitude: 77.22 }}
-        mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
+        initialViewState={{
+          zoom: 9,
+          latitude: 28.53,
+          longitude: 77.22,
+        }}
+        mapboxAccessToken="YOUR_MAPBOX_ACCESS_TOKEN"
         mapStyle="mapbox://styles/mapbox/streets-v11"
         style={{ width: "100%", height: "100%" }}
       >
+        {/* Legend */}
         <div style={{ position: "absolute", top: 10, right: 10, zIndex: 1000 }}>
           <Legend />
         </div>
@@ -133,10 +142,10 @@ const Map = ({ data }) => {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    fetchDriveImages(selectedMarker.image);
+                    handleImageClick(selectedMarker.image); // image field now holds Drive folder ID
                   }}
                 >
-                  Click to see images
+                  {loadingImages ? "Loading..." : "Click to see images"}
                 </a>
               )}
             </div>
@@ -144,7 +153,7 @@ const Map = ({ data }) => {
         )}
       </ReactMapGL>
 
-      {imageUrls.length > 0 && <ImageModal imageUrls={imageUrls} onClose={() => setImageUrls([])} />}
+      {imageUrls.length > 0 && <ImageModal imageUrls={imageUrls} onClose={closeModal} />}
     </>
   );
 };

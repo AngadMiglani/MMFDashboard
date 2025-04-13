@@ -96,7 +96,7 @@ const Map = ({ data }) => {
           latitude: 28.53,
           longitude: 77.22,
         }}
-        mapboxAccessToken="YOUR_MAPBOX_ACCESS_TOKEN"
+        mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
         mapStyle="mapbox://styles/mapbox/streets-v11"
         style={{ width: "100%", height: "100%" }}
       >

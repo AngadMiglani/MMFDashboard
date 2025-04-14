@@ -10,10 +10,26 @@ const ImageModal = ({ imageUrls, onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <Carousel showThumbs={false}>
-          {imageUrls.map((url, index) => (
+        <Carousel
+          showThumbs={false}
+          dynamicHeight={true}
+          emulateTouch={true}
+          useKeyboardArrows={true}
+          infiniteLoop={true}
+          showStatus={false}
+        >
+          {imageUrls.map((imageUrl, index) => (
             <div key={index}>
-              <img src={url} alt={`Site Image ${index + 1}`} style={{ width: "100%" }} />
+              <img
+                src={imageUrl}
+                loading="lazy"
+                alt={`Site Image ${index + 1}`}
+                style={{
+                  width: "100%",
+                  maxHeight: "80vh",
+                  objectFit: "contain",
+                }}
+              />
             </div>
           ))}
         </Carousel>

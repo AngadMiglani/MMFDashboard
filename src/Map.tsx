@@ -98,7 +98,10 @@ const Map = ({ data }) => {
     const images = await fetchImagesFromDriveFolder(folderId);
     console.log(images); // add this inside your component just before rendering the modal
     setImageUrls(images);
-    console.log(imageUrls); // add this inside your component just before rendering the modal
+    useEffect(() => {
+      console.log("Updated imageUrls: ", imageUrls);
+    }, [imageUrls]);
+    
     setLoadingImages(false);
   };
 

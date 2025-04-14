@@ -153,8 +153,9 @@ const Map = ({ data }) => {
         )}
       </ReactMapGL>
 
-      {imageUrls.length > 0 && <ImageModal imageUrls={imageUrls} onClose={closeModal} />}
-      
+      {
+      console.log(imageUrls); // add this inside your component just before rendering the modal
+      imageUrls.length > 0 && <ImageModal imageUrls={imageUrls} onClose={closeModal} />}
     </>
   );
 };

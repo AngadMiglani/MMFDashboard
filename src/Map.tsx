@@ -156,6 +156,7 @@ const Map = ({ data }) => {
       </ReactMapGL>
 
       {imageUrls.length > 0 && <ImageModal imageUrls={imageUrls} onClose={closeModal} />}
+      console.log(imageUrls);
     </>
   );
 };

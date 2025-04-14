@@ -10,25 +10,18 @@ const ImageModal = ({ imageUrls, onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <Carousel
-          showThumbs={false}
-          dynamicHeight={true}
-          emulateTouch={true}
-          useKeyboardArrows={true}
-          infiniteLoop={true}
-          showStatus={false}
-        >
+        {/* Optional: display raw image URLs for debugging */}
+        <pre style={{ textAlign: "left", fontSize: "0.75em", maxHeight: "100px", overflowY: "auto" }}>
+          {JSON.stringify(imageUrls, null, 2)}
+        </pre>
+
+        <Carousel>
           {imageUrls.map((imageUrl, index) => (
             <div key={index}>
               <img
                 src={imageUrl}
-                loading="lazy"
                 alt={`Site Image ${index + 1}`}
-                style={{
-                  width: "100%",
-                  maxHeight: "80vh",
-                  objectFit: "contain",
-                }}
+                style={{ width: "100%" }}
               />
             </div>
           ))}
@@ -98,10 +91,6 @@ const Map = ({ data }) => {
     const images = await fetchImagesFromDriveFolder(folderId);
     console.log(images); // add this inside your component just before rendering the modal
     setImageUrls(images);
-    useEffect(() => {
-      console.log("Updated imageUrls: ", imageUrls);
-    }, [imageUrls]);
-    
     setLoadingImages(false);
   };
 

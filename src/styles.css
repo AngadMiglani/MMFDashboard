@@ -156,6 +156,7 @@ select {
   max-width: 600px;
   width: 90%;
   text-align: center;
+  position: relative;
 }
 
 .modal-close {

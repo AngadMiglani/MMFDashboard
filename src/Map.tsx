@@ -10,21 +10,23 @@ const ImageModal = ({ imageUrls, onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {/* Optional: display raw image URLs for debugging */}
-        <pre style={{ textAlign: "left", fontSize: "0.75em", maxHeight: "100px", overflowY: "auto" }}>
-          {JSON.stringify(imageUrls, null, 2)}
-        </pre>
-
-        <Carousel>
-          {imageUrls.map((imageUrl, index) => (
-            <div key={index}>
-              <img
-                src={imageUrl}
-                alt={`Site Image ${index + 1}`}
-                style={{ width: "100%" }}
-              />
-            </div>
-          ))}
+      <Carousel>
+        {imageUrls.map((imageUrl, index) => (
+          <div key={index}>
+            <p style={{ fontSize: "12px" }}>{imageUrl}</p>
+            <img
+              src={imageUrl}
+              alt={`Site Image ${index + 1}`}
+              style={{
+                width: "100%",
+                maxHeight: "400px",
+                objectFit: "contain",
+                borderRadius: "8px",
+            }}
+          onError={() => console.error("Failed to load:", imageUrl)}
+          />
+          </div>
+        ))}
         </Carousel>
         <button className="modal-close" onClick={onClose}>X</button>
       </div>

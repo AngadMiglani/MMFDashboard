@@ -82,7 +82,6 @@ const Map = ({ data }) => {
     const images = await fetchImagesFromDriveFolder(folderId);
     console.log(images); // add this inside your component just before rendering the modal
     setImageUrls(images);
-    console.log(imageUrls); // add this inside your component just before rendering the modal
     setLoadingImages(false);
   };
 
@@ -155,8 +154,11 @@ const Map = ({ data }) => {
         )}
       </ReactMapGL>
 
-      {imageUrls.length > 0 && <ImageModal imageUrls={imageUrls} onClose={closeModal} />}
-      console.log(imageUrls);
+      {
+      console.log(imageUrls); // add this inside your component just before rendering the modal
+      imageUrls.length > 0 && <ImageModal imageUrls={imageUrls} onClose={closeModal} />
+      console.log(imageUrls);}
+      
     </>
   );
 };

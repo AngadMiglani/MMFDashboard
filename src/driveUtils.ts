@@ -15,7 +15,7 @@ export const fetchImagesFromDriveFolder = async (folderId: string): Promise<stri
       return [];
     }
 
-    return data.files.map((file) => `https://drive.google.com/uc?id=${file.id}`);
+    return data.files.map((file) => `https://drive.usercontent.google.com/download?id=${file.id}`);
   } catch (error) {
     console.error("Error fetching images from Drive folder:", error);
     return [];

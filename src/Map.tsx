@@ -5,6 +5,7 @@ import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { Carousel } from "react-responsive-carousel";
 import { fetchImagesFromDriveFolder } from "./driveUtils";
 
+
 // Modal Component
 const ImageModal = ({ imageUrls, onClose }) => {
   return (

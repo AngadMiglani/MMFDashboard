@@ -18,7 +18,7 @@ const ImageModal = ({ imageUrls, onClose }) => {
             <img
               src={imageUrl}
               alt={`Site Image ${index + 1}`}
-              loading="eager"
+              loading="lazy" 
               style={{
                 width: "100%",
                 maxHeight: "400px",

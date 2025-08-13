@@ -5,22 +5,25 @@
   "keywords": [],
   "main": "src/index.tsx",
   "dependencies": {
+    "express": "^5.1.0",
     "mapbox-gl": "3.3.0",
+    "node-fetch": "^3.3.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-map-gl": "7.1.7",
-    "vite": "^5.2.11",
     "react-helmet": "^6.1.0",
-    "react-responsive-carousel": "^3.2.23"
+    "react-map-gl": "7.1.7",
+    "react-responsive-carousel": "^3.2.23",    
+    "vite": "^5.2.11"
   },
   "devDependencies": {
     "@types/react": "18.2.38",
     "@types/react-dom": "18.2.15",
+    "concurrently": "^9.2.0",
     "loader-utils": "3.2.1",
     "typescript": "4.4.4"
   },
   "scripts": {
-    "dev": "vite dev",
+    "dev": "concurrently \"vite dev\" \"node api/route.js\"",
     "build": "vite build"
   },
   "browserslist": [

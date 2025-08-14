@@ -1,17 +1,19 @@
-// server.js (CommonJS)
-const express = require("express");
-const app = express();
-const PORT = 5000;
 
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
-app.get("/drive", async (req, res) => {
-  const id = req.query.id;
-  if (!id) return res.status(400).send("Missing id");
+export default async function handler(req, res) {
+  const { id } = req.query;
+  if (!id) {
+    res.status(400).send("Missing id");
+    return;
+  }
   const driveUrl = `https://drive.google.com/uc?export=view&id=${id}`;
 
   const upstream = await fetch(driveUrl, { redirect: "follow" });
-  if (!upstream.ok) return res.status(upstream.status).send("Upstream error");
+  if (!upstream.ok) {
+    res.status(upstream.status).send("Upstream error");
+    return;
+  }
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
@@ -19,6 +21,4 @@ app.get("/drive", async (req, res) => {
   res.setHeader("Content-Type", upstream.headers.get("content-type") || "image/jpeg");
 
   upstream.body.pipe(res);
-});
-
-app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+}

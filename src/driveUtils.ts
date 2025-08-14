@@ -2,6 +2,9 @@
 
 const API_KEY = "AIzaSyADWvsv4yDUy257HC8icbKkrgRUgQFOi9k";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+
+
 export const fetchImagesFromDriveFolder = async (folderId: string): Promise<string[]> => {
   try {
     const response = await fetch(
@@ -17,7 +20,7 @@ export const fetchImagesFromDriveFolder = async (folderId: string): Promise<stri
 
     //return data.files.map((file) => `https://drive.google.com/uc?export=view&id=${file.id}`);
     //return data.files.map((file) => `https://drive.google.com/file/d/${file.id}/view`);
-    return data.files.map((file) => `http://localhost:5000/drive?id=${file.id}`);
+    return data.files.map((file) => `${API_BASE_URL}/drive?id=${file.id}`);
     } catch (error) {
     console.error("Error fetching images from Drive folder:", error);
     return [];

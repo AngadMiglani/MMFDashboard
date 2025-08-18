@@ -13,8 +13,7 @@ const ImageModal = ({ imageUrls, onClose }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
       <Carousel>
         {imageUrls.map((imageUrl, index) => (
-          <div key={index}>
-            <!--<p style={{ fontSize: "12px" }}>{imageUrl}</p>-->
+          <div key={index}>           
             <img
               src={imageUrl}
               alt={`Site Image ${index + 1}`}

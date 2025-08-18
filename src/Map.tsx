@@ -14,7 +14,7 @@ const ImageModal = ({ imageUrls, onClose }) => {
       <Carousel>
         {imageUrls.map((imageUrl, index) => (
           <div key={index}>
-            <p style={{ fontSize: "12px" }}>{imageUrl}</p>
+            <!--<p style={{ fontSize: "12px" }}>{imageUrl}</p>-->
             <img
               src={imageUrl}
               alt={`Site Image ${index + 1}`}

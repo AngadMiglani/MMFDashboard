@@ -1,6 +1,6 @@
 import "mapbox-gl/dist/mapbox-gl.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import { Carousel } from "react-responsive-carousel";
 import { fetchImagesFromDriveFolder } from "./driveUtils";
@@ -11,7 +11,32 @@ const ImageModal = ({ imageUrls, onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-      <Carousel>
+      <Carousel showThumbs={false}
+        showStatus={false}
+        renderArrowPrev={(onClickHandler, hasPrev, label) =>
+        hasPrev && (
+          <button
+            id="carousel-prev"
+            type="button"
+            onClick={onClickHandler}
+            title={label}
+          >
+            ◀
+          </button>
+        )
+      }
+      renderArrowNext={(onClickHandler, hasNext, label) =>
+        hasNext && (
+          <button
+            id="carousel-next"
+            type="button"
+            onClick={onClickHandler}
+            title={label}
+          >
+            ▶
+          </button>
+        )
+      }>
         {imageUrls.map((imageUrl, index) => (
           <div key={index}>           
             <img
@@ -19,7 +44,8 @@ const ImageModal = ({ imageUrls, onClose }) => {
               alt={`Site Image ${index + 1}`}
               style={{
                 width: "100%",
-                maxHeight: "400px",
+                maxHeight: "300px",
+                height: "300px",
                 objectFit: "contain",
                 borderRadius: "8px",
             }}
@@ -61,9 +87,10 @@ const Legend = () => (
 );
 
 const Map = ({ data }) => {
-  const [selectedMarker, setSelectedMarker] = useState(null);
-  const [imageUrls, setImageUrls] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState<any>(null);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [loadingImages, setLoadingImages] = useState(false);
+  const mapRef = useRef<any>();
 
   const markerImages = {
     "Completed": "/free-map-marker-icon-green-darker.png",
@@ -100,6 +127,39 @@ const Map = ({ data }) => {
     setImageUrls([]);
   };
 
+  const getPopupAnchor = (marker) => {
+    if (!mapRef.current) return 'bottom';
+    
+    try {
+      // Get actual screen coordinates from the map instance
+      const map = mapRef.current.getMap();
+      const point = map.project([marker.longitude, marker.latitude]);
+      
+      // Get map container dimensions
+      const container = map.getContainer();
+      const rect = container.getBoundingClientRect();
+      
+      const x = point.x;
+      const y = point.y;
+      const width = rect.width;
+      const height = rect.height;
+      
+      // Define edge thresholds (pixels from edge)
+      const edgeThreshold = 100;
+      
+      // Check proximity to edges and choose anchor accordingly
+      if (y < edgeThreshold) return 'top';           // Near top edge
+      if (y > height - edgeThreshold) return 'bottom'; // Near bottom edge
+      if (x < edgeThreshold) return 'left';          // Near left edge  
+      if (x > width - edgeThreshold) return 'right'; // Near right edge
+      
+      return 'bottom'; // Default for center positions
+    } catch (error) {
+      console.warn('Error calculating popup anchor:', error);
+      return 'bottom';
+    }
+  };
+
   return (
     <>
       <ReactMapGL
@@ -108,6 +168,7 @@ const Map = ({ data }) => {
           latitude: 28.53,
           longitude: 77.22,
         }}
+        ref={mapRef}
         mapboxAccessToken="pk.eyJ1IjoibmlraGlsc2FyYWYiLCJhIjoiY2xlc296YjRjMDA5dDNzcXphZjlzamFmeSJ9.7ZDaMZKecY3-70p9pX9-GQ"
         mapStyle="mapbox://styles/mapbox/streets-v11"
         style={{ width: "100%", height: "100%" }}
@@ -139,7 +200,7 @@ const Map = ({ data }) => {
             longitude={selectedMarker.longitude}
             onClose={() => setSelectedMarker(null)}
             closeOnClick={false}
-            anchor="top"
+            anchor={getPopupAnchor(selectedMarker)}
             className="mapboxgl-popup"
           >
             <div className="mapboxgl-popup-content tooltip">

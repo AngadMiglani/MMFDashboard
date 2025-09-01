@@ -16,7 +16,8 @@ const App = () => {
       setData(fetchedData); // Set the fetched data to state
     };
 
-    loadData();
+    loadData();   
+    setFilter("Completed");
   }, []);
 
   // Filter data based on the dropdown status and search term
@@ -32,7 +33,7 @@ const App = () => {
   const totalTrees = validData.reduce((sum, site) => sum + (site.numsaplings || 0), 0);
 
   // Handle changing of the filter
-  const handleFilterChange = (e) => {
+  const handleFilterChange = (e) => {     
     setFilter(e.target.value);
   };
 
@@ -70,7 +71,7 @@ const App = () => {
         <div style={{ position: "absolute", top: 10, left: 10, zIndex: 1000 }}>
           <select onChange={handleFilterChange} id="filter-select">
             <option value="All">All</option>
-            <option value="Completed">Completed</option>
+            <option value="Completed" selected>Completed</option>
             <option value="WIP">WIP</option>
             <option value="Qualified">Qualified</option>
             <option value="Allocated">Allocated</option>
